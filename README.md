@@ -31,10 +31,25 @@ The [site brief](docs/site-brief.md) records confirmed interview decisions and c
 
 The demo/trial form requires name, company, intent, and at least one of email or WeChat. Phone and requirements are optional. The user will configure submission handling later; see the [manual TODO](docs/manual-todo.md).
 
-**Astro with static output is the selected framework.** The implementation specification adopts TypeScript, CSS design tokens, SVG and GSAP as supporting defaults. Application implementation has not started.
+**Astro with static output is the selected framework.** The local Astro development environment and minimal Chinese/English pages are working. The remaining product page sections and visual design are tracked in the implementation prompts.
+
+## Local development
+
+Use the Node version pinned in `.nvmrc` and `.node-version`:
+
+```bash
+source "$HOME/.nvm/nvm.sh"
+nvm use
+npm ci
+npm run dev
+```
+
+Open `http://localhost:4321/` for Chinese and `http://localhost:4321/en/` for English. To verify the current scaffold, run `npm run check`, `npm run format:check`, and `npm run build`; `npm run preview` serves the static build locally. The built files are in `dist/`.
+
+In a restricted environment that cannot write Astro's user configuration directory, set `ASTRO_TELEMETRY_DISABLED=1` before the Astro commands. The current config has no public domain and the pages carry `noindex,nofollow` until the SEO/release stage.
 
 ## Implementation prompts
 
 The [KustoCargo prompt package](.github/prompt/kusto-cargo/README.md) contains the executable design/development specifications, bilingual content baseline, animation storyboard, form contract, quality gates and Lightsail release workflow.
 
-Start with [00-START-HERE.md](.github/prompt/kusto-cargo/00-START-HERE.md) and resume from [PROGRESS.md](.github/prompt/kusto-cargo/PROGRESS.md). There are 13 implementation phases; all development phases are initially pending, and production release is deferred until its inputs and deployment task are provided. The original reference prompts remain unchanged.
+Start with [00-START-HERE.md](.github/prompt/kusto-cargo/00-START-HERE.md) and resume from [PROGRESS.md](.github/prompt/kusto-cargo/PROGRESS.md). There are 13 implementation phases; local environment and Astro scaffold are complete, and content/i18n is next. Production release remains deferred until its inputs and deployment task are provided. The original reference prompts remain unchanged.

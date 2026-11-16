@@ -1,0 +1,102 @@
+---
+import type { Locale } from "../lib/site-config";
+import { siteConfig } from "../../site.config";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const isZh = locale === "zh-CN";
+---
+
+<header>
+  <a href={siteConfig.paths[locale]} aria-label="KustoCargo">
+    KustoCargo <span>途序</span>
+  </a>
+  <nav aria-label={isZh ? "语言" : "Language"}>
+    <a
+      href={siteConfig.paths["zh-CN"]}
+      lang="zh-CN"
+      aria-current={isZh ? "page" : undefined}
+    >
+      中文
+    </a>
+    <a
+      href={siteConfig.paths.en}
+      lang="en"
+      aria-current={!isZh ? "page" : undefined}
+    >
+      English
+    </a>
+  </nav>
+</header>
+
+<main>
+  <p>{isZh ? "为小微货代而设计" : "Built for small freight teams"}</p>
+  <h1>
+    {isZh
+      ? "让系统适应你的货代业务。"
+      : "Freight software that fits your workflow."}
+  </h1>
+  <p>
+    {isZh
+      ? "连接订单、单据、运输与费用。从标准版本开始，按你的实际流程定制，让 AI 融入日常工作。"
+      : "Connect bookings, documents, shipments and costs. Start with a standard version, tailor it to your operations, and bring AI into everyday work."}
+  </p>
+  <p>
+    {isZh
+      ? "完整产品介绍正在建设中。"
+      : "The full product website is in development."}
+  </p>
+</main>
+
+<style>
+  header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem clamp(1rem, 4vw, 3rem);
+  }
+
+  header > a {
+    color: inherit;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  header span {
+    font-size: 0.8em;
+    font-weight: 400;
+  }
+
+  nav {
+    display: flex;
+    gap: 1rem;
+  }
+
+  main {
+    margin: 12vh auto 0;
+    max-width: 48rem;
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.15;
+  }
+
+  main > p {
+    font-size: 1.125rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 520px) {
+    header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>
