@@ -131,7 +131,7 @@ English: Use MCP to connect compatible AI assistants with KustoCargo. Keep worki
 - 团队托管：由我们协助部署与维护，让团队专注业务。 / Managed hosting: We help deploy and maintain the system so your team can focus on operations.
 - 自行部署：部署到自己的环境，按公司的要求管理数据与运维。 / Self-hosted: Run the system in your own environment and manage data and operations to suit your company.
 
-这里讨论产品的交付方式，不向访客展示营销站的 Lightsail、Astro 或构建细节。不承诺未约定的 SLA、备份服务或收费条款。
+这里讨论产品的交付方式，不向访客展示营销站的 Cloudflare Workers、Astro 或构建细节。不承诺未约定的 SLA、备份服务或收费条款。
 
 ### FAQ `faq`
 

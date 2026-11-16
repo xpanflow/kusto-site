@@ -12,7 +12,7 @@ A static marketing and main product website for **Kusto Cargo**, a product curre
 ## References
 
 - Product source: `../kusto-cargo` (locally at `/home/xiaopan/workspace/kusto-cargo`).
-- Design process reference: [reference prompts](.github/prompt/reference/README.md), originally written for a personal portfolio website.
+- Design process reference: the previously discussed `.github/prompt/reference/` prompts for a personal portfolio website; that directory is not present in this checkout.
 
 Use the reference's detailed planning and specification process as inspiration. Define this site's content and visual identity independently. Its multi-page structure, technology choices, and agent build workflow are not requirements for this project.
 
@@ -27,7 +27,7 @@ Use the reference's detailed planning and specification process as inspiration. 
 
 ## Current status
 
-The [site brief](docs/site-brief.md) records confirmed interview decisions and clearly separates proposed details. Hosting is planned for the existing AWS Lightsail environment, with a possible Asian deployment later.
+The [site brief](docs/site-brief.md) records confirmed interview decisions and clearly separates proposed details. The initial website release is planned as static assets on Cloudflare Workers, connected to GitHub. The owner will connect and publish it manually.
 
 The demo/trial form requires name, company, intent, and at least one of email or WeChat. Phone and requirements are optional. The user will configure submission handling later; see the [manual TODO](docs/manual-todo.md).
 
@@ -50,6 +50,8 @@ In a restricted environment that cannot write Astro's user configuration directo
 
 ## Implementation prompts
 
-The [KustoCargo prompt package](.github/prompt/kusto-cargo/README.md) contains the executable design/development specifications, bilingual content baseline, animation storyboard, form contract, quality gates and Lightsail release workflow.
+The [KustoCargo prompt package](.github/prompt/kusto-cargo/README.md) contains the executable design/development specifications, bilingual content baseline, animation storyboard, form contract, visual checks for each step, quality gates and a Cloudflare Workers handoff.
 
-Start with [00-START-HERE.md](.github/prompt/kusto-cargo/00-START-HERE.md) and resume from [PROGRESS.md](.github/prompt/kusto-cargo/PROGRESS.md). There are 13 implementation phases; local environment and Astro scaffold are complete, and content/i18n is next. Production release remains deferred until its inputs and deployment task are provided. The original reference prompts remain unchanged.
+For the full local build, use [AUTONOMOUS-BUILD.md](.github/prompt/kusto-cargo/AUTONOMOUS-BUILD.md). It tells an Agent to complete every self-contained development step, inspect the rendered result after each step, and stop before GitHub connection or publishing.
+
+Start with [00-START-HERE.md](.github/prompt/kusto-cargo/00-START-HERE.md) and resume from [PROGRESS.md](.github/prompt/kusto-cargo/PROGRESS.md). There are 13 phases: local environment and the Astro scaffold are in place, the new per-step visual baseline is next, and the final publication phase belongs to the owner.

@@ -13,13 +13,17 @@
 
 前端开发先按 [设计简报](site-brief.md) 实现字段和校验，并保留可配置接收端。未接通时应明确告知暂不可提交，不模拟成功或丢弃访客信息。
 
-## 正式发布输入
+## Cloudflare Workers 与 GitHub 手动发布
 
-- [ ] 提供正式域名、Lightsail 区域/主机、既有 Web 服务、独立发布目录以及 DNS/TLS 方案；不要将认证密钥放入文档。
+- [ ] 确定 Cloudflare Worker 名称与公开地址，将 HTTPS origin 填入 `site.config.ts` 的 `siteUrl`；如使用自有域名，另行完成域名设置。
+- [ ] 在 Cloudflare 控制台创建 Worker，并连接本 GitHub 仓库；Worker 名称需与仓库内 Wrangler 配置一致。
+- [ ] 在 Workers Builds 中将生产 deploy command 设为 `npx wrangler versions upload`，避免 GitHub 推送直接成为线上活动部署；如不需要分支 Preview，关闭 Preview builds。
+- [ ] 检查构建产物和版本 URL，手动将目标版本设为线上活动部署，并记录版本与回退入口。
+- [ ] 手动验证正式 URL 的中英文页面、404、资源、导航和移动端效果。
 - [ ] 接收端完成后做真实收件验证；若决定先发布展示站而暂不开申请，在发布记录中明确这一选择并保持表单禁用提示。
 
-本地实施和发布准备可继续；上线操作遵循 [阶段 13](../.github/prompt/kusto-cargo/13-production-release.md) 的任务范围与真实验收。
+Agent 完成本地实施与交接材料；上线操作遵循[阶段 13](../.github/prompt/kusto-cargo/13-production-release.md) 的手动步骤。`versions upload` 会在 GitHub 构建时上传版本，但不会自行将其设为活动部署；用户控制正式上线时间。
 
-## 后续亚洲部署
+## 后续访问评估
 
-- [ ] 根据客户访问体验决定是否增加亚洲节点，并确定区域及访问调度方式；当前沿用 AWS Lightsail 方向。
+- [ ] 发布后实测中国与欧洲的访问体验，再决定是否需要其他区域或方案。

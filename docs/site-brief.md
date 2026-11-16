@@ -14,7 +14,7 @@
 
 ## 参考资料的用途（已确认）
 
-[参考 prompts](../.github/prompt/reference/README.md) 用于借鉴详细、预先明确的设计与实施规范。网站内容和视觉重新定义，不照搬个人作品集、固定技术栈或多页结构。
+此前讨论的 `.github/prompt/reference/` 用于借鉴详细、预先明确的设计与实施规范；当前检出的仓库没有该目录，实施以本项目 prompt 包为准。网站内容和视觉重新定义，不照搬个人作品集、固定技术栈或多页结构。
 
 ## 业务故事（已确认）
 
@@ -77,8 +77,8 @@ AI 继承当前登录人员的权限，操作受同样的业务授权约束。�
 
 ## 网站托管（已确认）
 
-- 当前托管方向为已有的 AWS Lightsail 环境，具体区域与部署方式尚未提供。
-- 后续考虑增加亚洲部署节点；地区、时间和访问调度方式待定。
+- **最新决定：初版网站采用 Cloudflare Workers 静态资源托管，连接 GitHub；用户手动完成连接和正式发布。**此前讨论的 Lightsail 和亚洲节点不是初版网站的执行方案。
+- GitHub 连接后须关闭自动生产发布：Workers Builds 的 deploy command 设为仅上传版本，用户再手动激活版本。首次创建 Worker 的动作也由用户在 Cloudflare 界面完成。
 - 网站托管与产品客户选择的托管/自部署方式分开规划。
 
 ## 技术方案
@@ -92,17 +92,18 @@ AI 继承当前登录人员的权限，操作受同样的业务授权约束。�
 | 样式 | CSS 设计变量与组件样式 | 实施默认值 | 统一深浅主题、字体、间距和响应式布局 |
 | 动画 | SVG + GSAP / ScrollTrigger | 实施默认值 | 航线绘制、货物移动、滚动分镜和节点展开 |
 | 双语路由 | 中文 `/`，英文 `/en/` | 路径为实施默认值；双语已确认 | 各语言独立的单页和共享组件 |
-| 托管 | Lightsail 上的静态 Web 服务 | Lightsail 已确认；默认准备 Nginx 模板并以现场服务为准 | 发布同一份静态构建产物，后续可复制到亚洲节点 |
+| 托管 | Cloudflare Workers 静态资源 + GitHub 连接 | 已确认；连接与发布由用户手动完成 | 构建静态 `dist/`，由 Workers 托管 |
 | 表单 | 可配置的接收端 | 用户后续手动设置 | 用户决定接收服务和通知渠道 |
 
-字体、图形与动画脚本优先随站点部署；航线地图用本地 SVG，不要求加载在线地图服务。CDN 是后续可选项，是否增加及亚洲节点如何设置，应以中国与欧洲的访问测试为依据。
+字体、图形与动画脚本优先随站点部署；航线地图用本地 SVG，不要求加载在线地图服务。正式上线后的中国与欧洲访问效果仍需实际测试。
 
 技术依据（2026-11-16 查阅）：
 
 - [Astro 静态预渲染](https://docs.astro.build/en/guides/on-demand-rendering/)：默认在构建时生成静态页面。
 - [Astro 多语言路由](https://docs.astro.build/en/guides/internationalization/)：支持默认语言无路径前缀及其他语言前缀。
 - [GSAP ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/)：支持滚动驱动时间线和固定场景。
-- [Lightsail 内容分发](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-content-delivery-network-distributions.html)：可从实例等源站缓存和分发静态内容。
+- [Cloudflare Astro 静态站](https://developers.cloudflare.com/workers/framework-guides/web-apps/astro/)：静态输出可直接作为 Workers 静态资源，无需服务端适配器。
+- [Cloudflare Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/)：GitHub 连接和只上传版本、不自动激活的发布方式。
 
 ## 执行规格与下一步
 
@@ -110,6 +111,6 @@ AI 继承当前登录人员的权限，操作受同样的业务授权约束。�
 - [内容规格](../.github/prompt/kusto-cargo/specs/01-product-content.md)给出页面顺序及中英文实施基线。
 - [设计规格](../.github/prompt/kusto-cargo/specs/02-design-motion.md)给出品牌、布局与开场分镜。
 - 配套工程、表单和质量/发布规格在同目录；13 个阶段各有具体产物和验收条件。
-- [进度记录](../.github/prompt/kusto-cargo/PROGRESS.md)从 01.1 开始；制作正式矢量资产、搭建应用和部署均尚未执行。
+- [进度记录](../.github/prompt/kusto-cargo/PROGRESS.md)当前在 02.4 视觉基线；最小 Astro 工程已完成，正式页面与品牌资产待开发。
 
-当前已完成规格文件包及本地环境/Astro 最小工程；下一阶段是中英文完整内容与示例数据。
+当前已完成本地环境/Astro 最小工程。新视觉验收基线完成后，下一阶段是中英文完整内容与示例数据。

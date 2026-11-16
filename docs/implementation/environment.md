@@ -45,8 +45,8 @@ Astro 的运行时要求来自[官方安装文档](https://docs.astro.build/en/i
 
 ## 浏览器与外部参数
 
-- 本机 PATH 未发现 `chromium`、`google-chrome` 或 `playwright` 命令；阶段 11 依据可用浏览器工具再决定测试执行方式，不记为已通过。
-- 正式域名、Lightsail 主机/路径/证书和表单接收端仍未知，不影响本地 Astro 开发。
+- 本机 PATH 未发现 `chromium`、`google-chrome` 或 `playwright` 命令；阶段 02.4 应准备真实浏览器并完成视觉基线，不记为已通过。
+- 正式域名、Cloudflare Worker 名称/账户、GitHub 连接和表单接收端仍未知，不影响本地 Astro 开发。初版托管方案已由用户改为 Cloudflare Workers 静态资源；连接与发布由用户手动完成。
 - 本次仅配置本地开发与最小静态工程，不使用真实产品后端或线上环境。
 
 ## 实测命令

@@ -42,9 +42,9 @@ tests/
   unit/contact-validation.test.ts
   e2e/{navigation,contact,journey}.spec.ts
 scripts/build-release.mjs
-ops/nginx/kusto-site.conf.template
+wrangler.jsonc                    # 阶段 12；仅静态 assets，无 main/SSR adapter
 docs/design/assets.md
-docs/implementation/{environment,qa-report,release-runbook,release-record}.md
+docs/implementation/{environment,visual-review,qa-report,release-runbook,release-record}.md
 ```
 
 文件名可按实际组件拆分，但职责与路由不能偏离。官网内容、示例与动画状态在各自模块管理；不要把大段字符串或示例财务值散落在组件中。
@@ -111,6 +111,8 @@ export const siteConfig: SiteConfig = {
 
 `astro build` 不能替代类型检查。脚本尚未建立时不可宣称已执行。预览与发布使用同一源码；发布标志只控制缺失配置的严格校验，不建立两套内容。
 
+阶段 12 创建 `wrangler.jsonc`，设置 Worker `name`、`compatibility_date`、`assets.directory: './dist'`、`assets.not_found_handling: '404-page'`。静态站不设 `main`，不安装 Astro Cloudflare SSR adapter。用户最终选择的 Worker 名称需与配置一致；当前可使用清晰的待替换开发名称，并在手动交接中标明。
+
 ## SEO 与站点文件
 
 - 每种语言独立 title、description、OG/Twitter 信息；公开 HTTPS origin 存在时设置 self canonical 和 zh-CN/en/x-default alternates。
@@ -133,3 +135,4 @@ export const siteConfig: SiteConfig = {
 - [Astro TypeScript](https://docs.astro.build/en/guides/typescript/)：显式运行类型检查。
 - [Astro 双语路由](https://docs.astro.build/en/guides/internationalization/)：默认语言和路径前缀。
 - [GSAP ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) 与 [matchMedia](https://gsap.com/docs/v3/GSAP/gsap.matchMedia%28%29/)：滚动控制及响应式清理。
+- [Cloudflare Astro 静态站](https://developers.cloudflare.com/workers/framework-guides/web-apps/astro/) 与 [静态 404](https://developers.cloudflare.com/workers/static-assets/routing/static-site-generation/)：Wrangler 只需要静态资源配置。

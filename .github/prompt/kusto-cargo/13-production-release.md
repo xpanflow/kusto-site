@@ -1,44 +1,33 @@
-# 13 · 正式发布与交接
+# 13 · 用户手动连接 GitHub 并发布 Cloudflare Workers
 
-目标：在明确指定的 Lightsail 环境上线并验证。依赖：12 done，以及用户已明确要求上线并提供目标信息。
+本阶段由用户执行。Agent 的自主开发 prompt 在阶段 12 完成后停止，不登录账户、连接仓库、push、上传版本或激活正式部署。
 
-当前“生成 prompts”不授权执行本阶段。若已有后续会话的明确部署授权，不重复请求同一授权；只补确实缺少的输入。
+## 用户准备
 
-## 读取
+- 确定 Worker 名称和公开 HTTPS URL（`workers.dev` 或自有域名），使 `site.config.ts.siteUrl` 与其一致。
+- 按[表单 TODO](../../../docs/manual-todo.md)配置真实接收端；若先发布展示站，明确保留 disabled 和对应提示。
+- 确认仓库中的 `wrangler.jsonc` 名称与 Cloudflare 控制台 Worker 名称相同。
 
-[发布规格](specs/05-quality-release.md)、运行手册、QA 报告、正式 site.config.ts、手动 TODO和本轮用户部署指令。
+## 用户手动步骤
 
-## 子步骤
+### 13.1 本地发布预检
 
-### 13.1 条件核对
+按阶段 12 生成的 `docs/implementation/release-runbook.md` 核对 `npm run check`、格式、测试、完整浏览器/视觉验收、`npm run build:release`。若真实地址尚未知，先在控制台确定 Worker 地址，再更新配置并重新构建。不得把 noindex 的本地预览构建当正式版本。
 
-确认域名、主机、认证方式、目录、现有 Web 服务与 TLS策略。核对是否共享产品服务器；只对独立营销站范围操作。不输出私钥或密码。
+### 13.2 GitHub 和 Workers Builds 连接
 
-表单 remote 时确认真实接收端；表单 disabled 时，必须有用户明确选择先发布展示站的决定，并把 allowDisabledForm与页面状态保持一致。输入缺失则记录具体 blocked/deferred，保留已完成的本地工作，不猜配置。
+用户将审核后的代码推送到自己的 GitHub 仓库，在 Cloudflare 控制台创建或选择 Worker 并连接该仓库。生产 build command 为 `npm run build:release`；deploy command 为 `npx wrangler versions upload`。检查设置界面，确保没有默认 `npx wrangler deploy` 自动发布，必要时关闭 Preview builds。
 
-### 13.2 正式制品与发布
+GitHub push 后的构建会生成可供检查的 Worker 版本，但不自行切换线上活动部署。若首次创建流程中的按钮明确写“Save and Deploy”，需由用户自行评估首次发布后再继续。
 
-使用通过 QA 的代码，执行正式构建、内容检查与 checksum。确认产物不是阶段 11/12 的测试或预览包。按运行手册上传到独立新 release，准备共享哈希资源并验证。
+### 13.3 检查版本并手动激活
 
-在切换前记录当前版本和配置；语法检查通过后才 reload，原子切换入口。不能覆盖现有产品的容器、数据库、虚拟主机或静态目录。
+用户查看构建日志和版本 URL，核对中文/英文、404、静态资源、Logo、手机布局、导航及表单模式。确认后在 Cloudflare 的 Versions/Deployments 界面手动将目标版本设为活动部署。若结果有问题，用户在界面选择先前版本回退。
 
-### 13.3 线上验证
+### 13.4 线上验收与记录
 
-检查 HTTPS、中文/英文、404、关键资源、MIME/缓存、Logo、手机首屏、动画降级、导航与 CTA。remote 表单做一次约定的合成测试并确认真实接收；外部消息测试在明确部署/验收授权范围内执行。
+用户验证正式 URL、HTTPS、中文/英文、404、移动端、CTA。表单 remote 时做合成申请并确认真实接收；disabled 时检查页面真实提示。记录发布版本、公开 URL、时间和回退方式到 `docs/implementation/release-record.md`，之后才将本阶段标 done。
 
-失败时按运行手册恢复前一版本；不要在用户正常访问期间为展示能力随意切换。记录真实失败与恢复过程。
+## Agent 的角色
 
-### 13.4 交接
-
-创建 `docs/implementation/release-record.md`，写真实 URL、时间、版本/checksum、正式配置模式、检查结果、可恢复版本及未完成项。更新 README 与 PROGRESS，关闭实际已完成的手动 TODO；亚洲节点未做则继续保留。
-
-## 产物与验收
-
-- 实际线上 URL 可访问，路由/资源/交互与部署状态一致。
-- 有真实发布与检查记录；表单模式和接收验证没有混淆。
-- 失败可恢复，既有业务未被替换；交接路径清楚。
-- 只有上述完成才标 13 done 和“线上完成”。没有运行时不能用配置模板当上线证据。
-
-## 断点
-
-记录 `13.1`–`13.4`，尤其上传、切换、reload 前后真实状态。中断恢复先查看服务器当前指针与构建标识，避免重复切换或重复发测试消息。
+Agent 可以在用户后续请求时阅读检查线上结果并协助诊断，但不能因用户已连接 GitHub 就自行推送或发布。未得到真实上线结果时，`PROGRESS.md` 保持 13 deferred，不写“已上线”。

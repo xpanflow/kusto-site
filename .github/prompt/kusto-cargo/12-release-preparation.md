@@ -1,42 +1,43 @@
-# 12 · Lightsail 发布准备
+# 12 · Cloudflare Workers 发布准备
 
-目标：形成可审阅、可重复发布和回滚的静态交付包；此阶段只准备，不接触线上。依赖：11 done。
+目标：完成可复核的静态制品、Workers 配置、GitHub 连接说明和用户手动发布交接。依赖：11 done。本阶段全程本地进行。
 
 ## 读取
 
-[发布规格](specs/05-quality-release.md)、QA 报告、[手动 TODO](../../../docs/manual-todo.md)。
+[质量与发布规格](specs/05-quality-release.md)、[视觉检查](specs/06-visual-review.md)、QA 报告、[手动 TODO](../../../docs/manual-todo.md)。
 
 ## 子步骤
 
-### 12.1 制品流程
+每完成一个编号子步骤，都按[逐步视觉检查](specs/06-visual-review.md)查看本地构建的中英文页面并记录截图，确认配置和文档变更未引入视觉回归。
 
-创建本地打包脚本或明确命令，构建成功后将 dist 的公开文件打包，生成清单和 SHA-256。发布包不能包含源代码、prompts、环境文件、node_modules 或测试构建。
+### 12.1 静态资源配置
 
-未知正式 URL/表单配置时用预览包验证流程，并明确命名 preview。真正上线前必须重新执行 build:release；不得将预览包改名冒充正式包。
+按规格创建 `wrangler.jsonc`，`assets.directory` 为 `./dist`，`not_found_handling` 为 `404-page`；静态站不设 `main` 或 SSR adapter。固定 Wrangler 开发依赖和 lockfile，核对与 Cloudflare 文档的兼容性。建议名称 `kusto-cargo-site`，最终名称由用户连接时确认。
 
-### 12.2 Web 服务模板
+构建后检查 `dist/index.html`、`dist/en/index.html`、`dist/404.html` 与必要资源；列表核对没有 prompts、密钥、源代码或测试数据意外进入 dist。
 
-准备 `ops/nginx/kusto-site.conf.template`，独立域名/目录、正确静态路由/404、HTML与哈希资源缓存、共享 _astro、HTTP→HTTPS与证书占位项。现有服务器信息未知，不假设已安装 Nginx或可占用80/443。
+### 12.2 本地 Workers 路由预览
 
-能在本地合适环境验证模板时，替换为临时测试路径并做语法测试；不能验证则记录待目标主机 `nginx -t`，不称测试通过。不要在本机改系统级服务配置。
+用 Wrangler 的本地预览方式检查 `/`、`/en/`、不存在路径返回 404、图片/CSS/JS 资源响应。若本地工具受限，记录具体错误并修复；不能用 Astro preview 的结果冒充 Workers 路由验收。再用真实浏览器看中英文桌面和手机页面，保存截图并目视确认 Workers 本地预览与 Astro 构建一致。
 
-### 12.3 运行与回滚手册
+### 12.3 GitHub 连接和用户发布说明
 
-创建 `docs/implementation/release-runbook.md`，涵盖需要用户提供的非秘密参数、正式构建、checksum、上传新 release、共享哈希资产、原子切换、服务校验、HTTPS/DNS、逐路由检查和回滚前一版本。
+创建 `docs/implementation/release-runbook.md`，给用户一份按顺序操作的手册：选择 Worker 名称/URL，填 `site.config.ts`，执行完整检查及 release build，用户推送 GitHub，Cloudflare 控制台连接仓库，设置 build command `npm run build:release` 与 deploy command `npx wrangler versions upload`，关闭不需要的 Preview，再由用户检查版本并手动激活。写清 Worker 名称必须匹配配置、默认 deploy 可能随 push 自动上线、版本上传与正式激活的区别。
 
-所有命令清楚区分本地/远端和示例值；不含自动删除旧目录、自动覆盖现有产品或上传全仓库的命令。无需默认创建自动发布流水线。
+用实际可用的本地工具验证步骤和命令格式，但不访问或配置账户，不运行任何远程版本上传/部署命令。准备检查清单和回退说明，不生成假公开 URL。
 
-### 12.4 交接与未完成事项
+### 12.4 交接核对
 
-在手动 TODO 中保留接收端配置、真实收件、域名/主机/TLS输入及未来亚洲节点，注明负责人和解除条件。运行手册提供同一制品未来复制到亚洲节点的方向，但不预设调度方案。
+更新 README 和手动 TODO，明确用户待填 Worker 名称/HTTPS origin、表单接收端、GitHub 连接、手动激活与线上验收。完成一次最后的本地视觉回归和截图记录；当前外部条件缺失时清楚注明 release build 尚未可能通过。
 
 ## 产物与验收
 
-- 本地打包流程已验证、包内容与 checksum可复核，正式/预览标记准确。
-- Nginx 模板与发布/回滚手册完整，未知参数明确；模板测试状态真实。
-- 没有操作服务器、DNS、AWS资源或现有业务服务。
-- 01–12 全部通过后可记录“本地实现与发布准备完成”；13仍依其条件 pending/deferred。
+- `wrangler.jsonc`、固定依赖/lockfile、Workers 本地 2 路由+404 结果、逐步视觉证据。
+- 发布手册可由用户按步骤执行，自动发布默认项已明确替换为 `versions upload`。
+- README/手动 TODO 与 Cloudflare 方案一致；无 Lightsail/Nginx 当作初版目标的指令。
+- 不 push、不连接 GitHub/Cloudflare、不上传版本、不激活部署。
+- 01–12 均通过后可记录“本地实现与 Cloudflare 手动发布准备完成”；13 仍交给用户。
 
 ## 断点
 
-记录 `12.1`–`12.4` 和具体包/checksum/缺失输入。下一步是 13 的条件检查；没有上线任务时交接停止，不自动发布。
+记录 `12.1`–`12.4` 的命令、截图、实际观察、仍需用户提供的值。结束后停在 `13.1 用户手动发布`，不能为了完成进度而自行上线。

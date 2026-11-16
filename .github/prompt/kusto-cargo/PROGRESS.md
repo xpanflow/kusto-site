@@ -1,13 +1,13 @@
 # KustoCargo 网站实施进度
 
-唯一进度记录；创建于 2026-11-16。规格文件已编写，本地环境与 Astro 工程已验收；其余开发阶段按下表推进。
+唯一进度记录；创建于 2026-11-16。本地环境和 Astro 工程的命令验收已完成；用户新增逐步视觉验收，阶段 02 需补 02.4 才算全部完成。
 
 ## 当前断点
 
-- 当前阶段：03
-- 当前子步骤：03.1
-- 下一动作：根据 `03-content-i18n.md` 建立类型化中英文内容；本轮用户要求的本地环境配置已完成。
-- 最近完成的实施步骤：02.1–02.3；依赖、双语最小路由和静态构建已验证
+- 当前阶段：02
+- 当前子步骤：02.4
+- 下一动作：按 `specs/06-visual-review.md` 准备真实浏览器，目视检查中文/英文桌面与手机基线，留下截图；之后连续推进 03–12。
+- 最近完成的实施步骤：02.1–02.3；依赖、双语最小路由和静态构建已验证，视觉尚未验收
 - 本地可交付：未完成
 - 正式上线：未开始
 
@@ -16,7 +16,7 @@
 | ID | 阶段 | 状态 | 子步骤检查点 | 产物/证据 |
 | --- | --- | --- | --- | --- |
 | 01 | 基线与环境 | done | 01.1–01.3 | `docs/implementation/environment.md`；Node/npm/版本核查完成 |
-| 02 | Astro 工程 | done | 02.1–02.3 | `package.json`/`package-lock.json`、`astro.config.ts`、`site.config.ts`、`src/pages/`；check/build/preview/dev 通过 |
+| 02 | Astro 工程 | in-progress | 02.4 | 02.1–02.3 的 check/build/HTTP 已通过；新增浏览器视觉基线待执行 |
 | 03 | 内容与双语 | pending | 03.1 | — |
 | 04 | 品牌与设计系统 | pending | 04.1 | — |
 | 05 | 页面骨架 | pending | 05.1 | — |
@@ -26,21 +26,21 @@
 | 09 | 部署选择与表单 | pending | 09.1 | — |
 | 10 | SEO 与分享 | pending | 10.1 | — |
 | 11 | 整体质量验收 | pending | 11.1 | — |
-| 12 | Lightsail 发布准备 | pending | 12.1 | — |
-| 13 | 正式发布 | deferred | 13.1 | 目标环境和上线任务未提供 |
+| 12 | Cloudflare Workers 发布准备 | pending | 12.1 | — |
+| 13 | 用户手动发布 | deferred | 13.1 | GitHub 连接、Cloudflare 版本激活和线上验收由用户操作 |
 
 ## 外部待办与阻塞
 
 | 事项 | 状态/负责人 | 影响与解除方式 |
 | --- | --- | --- |
 | 表单接收地址、渠道和服务设置 | deferred / 用户 | 本地默认 disabled；配置后做真实接收验证，见手动 TODO |
-| 域名、主机、Web 服务、证书和发布路径 | pending / 用户提供，Agent 整理 | 不阻塞本地实现；正式发布前补齐 |
-| 亚洲节点 | deferred / 用户 | 不阻塞现有 Lightsail 方案 |
-| 当前执行阻塞 | 无 | 实施尚未开始 |
+| Worker 名称、公开 URL、GitHub/Cloudflare 连接 | deferred / 用户 | 不阻塞本地实现；阶段 12 使用占位说明，阶段 13 手动完成 |
+| 中国与欧洲访问测试 | deferred / 用户 | 上线后实测，不阻塞本地开发 |
+| 当前执行阻塞 | 无 | 02.4 视觉基线尚未开始；如浏览器不可用再记录具体阻塞 |
 
 ## 最近检查
 
-阶段 01–02：默认 Node 20.18.0；项目用 nvm 24.22.3/npm 11.19.1。固定依赖安装与 lockfile 完成；`npm ls --depth=0`、`npm run check`、`npm run format:check`、`npm run build` 均通过。`dist/` 生成 2 页；dev 与 preview 本地 HTTP 验证 `/`、`/en/` 的 lang/H1 均通过。沙箱执行 Astro 时设置 `ASTRO_TELEMETRY_DISABLED=1`，监听/localhost 检查获得了受限环境所需权限。详见 `docs/implementation/environment.md`。
+阶段 01–02.3：默认 Node 20.18.0；项目用 nvm 24.22.3/npm 11.19.1。固定依赖安装与 lockfile 完成；`npm ls --depth=0`、`npm run check`、`npm run format:check`、`npm run build` 均通过。`dist/` 生成 2 页；dev 与 preview 本地 HTTP 验证 `/`、`/en/` 的 lang/H1 均通过。这些是命令/HTTP证据，不能替代新要求的视觉检查。详见 `docs/implementation/environment.md`。
 
 ## 变更与恢复日志
 
@@ -49,10 +49,12 @@
 | 2026-11-16 | 规格准备 | 建立 prompts、规格与空白进度记录；未执行应用阶段 | 等待实施任务，从 01.1 开始 |
 | 2026-11-16 | 01.1–01.3 | 核查 Git、Node/npm、官方 Astro engine 与 npm 版本；修复 `.gitignore` 首行，建立环境记录和 Node 版本文件 | 02.1 Astro 静态工程 |
 | 2026-11-16 | 02.1–02.3 | 固定 Astro 7.4.12、TS 6.0.3 等版本并安装；完成共享双语路由，check/build/format、dev/preview HTTP 检查通过 | 03.1 内容与双语 |
+| 2026-11-16 | 计划修订 | 初版改为 Cloudflare Workers 静态资源 + GitHub，用户手动发布；新增每个子步骤的视觉门槛，重开 02.4 | 02.4 浏览器视觉基线 |
 
 ## 交接记录
 
-- 已生成并验证本地依赖、最小 `src/` 和静态构建产物；完整网站区段尚未实施。
+- 已生成并验证本地依赖、最小 `src/` 和静态构建产物；需要补实际浏览器截图，完整网站区段尚未实施。
+- 后续 Agent 可执行本地阶段 02.4–12；阶段 13 保持用户手动发布，Agent 不连接账户、push、上传或激活版本。
 - 选定 Logo 方向是现有探索图中间的 02；原图在 `docs/brand/logo-exploration-v3.png`。
 - 参考文件夹保留，不从其阶段重新开始。
 - 更新本文件时填写准确路径、子步骤和验证证据，避免只写“继续做前端”。

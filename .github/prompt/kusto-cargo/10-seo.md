@@ -8,6 +8,8 @@
 
 ## 子步骤
 
+每完成一个编号子步骤，都按[逐步视觉检查](specs/06-visual-review.md)查看中英文实际页面并记录截图；元信息步骤也检查现有页面无视觉回归。
+
 ### 10.1 元信息与路由
 
 为中文/英文设置独立 title、description、lang、OG 和 Twitter 元信息。公开 origin 存在时生成 self canonical 和 zh-CN/en/x-default alternate；无 origin 则 noindex，不能使用 example.com 作为正式 URL。
