@@ -1,0 +1,14 @@
+n'ca# Local environment and credentials
+.env
+.env.*
+!.env.example
+/.aws/
+
+# Local OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Logs
+*.log
