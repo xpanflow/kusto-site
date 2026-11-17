@@ -1,0 +1,42 @@
+---
+interface Props {
+  light?: boolean;
+  href?: string;
+}
+const { light = false, href = "#journey" } = Astro.props;
+---
+
+<a class="logo" href={href} aria-label="KustoCargo · 途序">
+  <img
+    src={light ? "/brand/mark-light.svg" : "/brand/mark.svg"}
+    width="50"
+    height="34"
+    alt=""
+  />
+  <span>
+    KustoCargo<small>途序</small>
+  </span>
+</a>
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    line-height: 1.1;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .logo img {
+    width: 50px;
+    height: 34px;
+  }
+  .logo small {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    margin-top: 4px;
+    font-weight: 400;
+  }
+</style>

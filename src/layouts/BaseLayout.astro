@@ -1,12 +1,19 @@
 ---
+import "../styles/global.css";
+import "../styles/layout.css";
 import type { Locale } from "../lib/site-config";
-
+import { content } from "../lib/i18n";
+import { siteConfig } from "../../site.config";
 interface Props {
   locale: Locale;
   title: string;
 }
-
 const { locale, title } = Astro.props;
+const { ui } = content(locale);
+const origin = siteConfig.siteUrl;
+const url = origin ? origin + siteConfig.paths[locale] : "";
+const description = ui.hero.body;
+const share = `/images/og-${locale === "en" ? "en" : "zh"}.png`;
 ---
 
 <!doctype html>
@@ -14,31 +21,48 @@ const { locale, title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex,nofollow" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="robots"
+      content={origin ? "index,follow" : "noindex,nofollow"}
+    />
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    {origin && (
+      <>
+        <link rel="canonical" href={url} />
+        <link rel="alternate" hreflang="zh-CN" href={`${origin}/`} />
+        <link rel="alternate" hreflang="en" href={`${origin}/en/`} />
+        <link rel="alternate" hreflang="x-default" href={`${origin}/`} />
+        <meta property="og:url" content={url} />
+      </>
+    )}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="KustoCargo · 途序" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={locale === "en" ? "en_US" : "zh_CN"} />
+    <meta property="og:image" content={origin + share} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={origin + share} />
+    {origin && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "KustoCargo · 途序",
+          description,
+          url,
+        }).replace(/</g, "\\u003c")}
+      />
+    )}
   </head>
   <body>
     <slot />
   </body>
 </html>
-
-<style is:global>
-  :root {
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      "Segoe UI",
-      sans-serif;
-    color: #10283f;
-    background: #f5f7f8;
-  }
-
-  body {
-    margin: 0;
-  }
-
-  a {
-    color: #087f8c;
-  }
-</style>

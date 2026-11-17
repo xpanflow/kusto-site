@@ -27,3 +27,13 @@ Agent 完成本地实施与交接材料；上线操作遵循[阶段 13](../.gith
 ## 后续访问评估
 
 - [ ] 发布后实测中国与欧洲的访问体验，再决定是否需要其他区域或方案。
+
+## 接收端协议（本地实现）
+
+表单默认 disabled，字段停用且不发送请求。用户提供 HTTPS endpoint 后设 remote；接收服务须支持跨域 JSON POST、服务器端同样校验、requestId 去重、滥用防护与合适的数据保存策略。
+成功仅接受 HTTP 200/201 + `{ "ok": true, "submissionId": "非空字符串" }`。422/400 可返回已知字段错误，429 限流，其余失败保留内容。超时由 AbortController 控制；相同内容失败重试复用 requestId，修改后生成新 ID。
+第三方服务协议不同须修改 transport adapter 并重新测试。启用前补充接收主体和隐私说明，进行合成申请并在真实接收渠道确认；浏览器拦截测试不代表送达。
+
+## 最终发布交接
+
+Worker 建议名称 `kusto-cargo-site`，用户确认并与配置保持一致；填写真实 HTTPS origin，连接 GitHub/Cloudflare，并按 [手动发布手册](implementation/release-runbook.md) 设置 build command `npm run build:release`、deploy command `npx wrangler versions upload`。用户检查版本后手动激活，完成线上双语/404/资源与实际表单收件验收。当前所有本地接收测试均为拦截模拟，不代表真实送达。阶段 13 仍 deferred。

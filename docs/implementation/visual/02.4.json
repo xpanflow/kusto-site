@@ -1,0 +1,35 @@
+{
+  "step": "02.4",
+  "time": "2026-11-16T21:41:37.148Z",
+  "target": "",
+  "results": [
+    {
+      "locale": "zh",
+      "size": "desktop",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "zh",
+      "size": "mobile",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "en",
+      "size": "desktop",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "en",
+      "size": "mobile",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    }
+  ]
+}

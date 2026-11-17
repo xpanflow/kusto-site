@@ -38,7 +38,10 @@ export function validateSiteConfig(config: SiteConfig, release = false): void {
 
 function isHttpsUrl(value: string): boolean {
   try {
-    return new URL(value).protocol === "https:";
+    const url = new URL(value);
+    return (
+      url.protocol === "https:" && !url.username && !url.password && !url.hash
+    );
   } catch {
     return false;
   }

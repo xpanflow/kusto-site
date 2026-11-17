@@ -1,0 +1,120 @@
+---
+import type { InterfaceContent } from "../../content/types";
+import { seaRoute } from "../../data/journey";
+interface Props {
+  ui: InterfaceContent;
+}
+const { ui } = Astro.props;
+---
+
+<section id="journey" class="dark journey">
+  <div class="journey-sticky">
+    <div class="container hero-intro">
+      <div class="journey-layout">
+        <div class="journey-copy">
+          <div class="journey-opening">
+            <p class="eyebrow">KUSTOCARGO / {ui.hero.eyebrow}</p>
+            <h1>{ui.hero.title}</h1>
+            <p class="muted">{ui.hero.body}</p>
+            <div class="actions">
+              <a class="button primary" href="#contact" data-intent="demo">
+                {ui.hero.demo} →
+              </a>
+              <a class="button" href="#contact" data-intent="trial">
+                {ui.hero.trial}
+              </a>
+            </div>
+          </div>
+          <div class="journey-story" hidden aria-hidden="true">
+            <span class="tag">{ui.labels.example} / DEMO-CN-EU-001</span>
+            {ui.journey.slice(1).map((title, i) => (
+              <div data-story={i + 1} hidden>
+                <p class="eyebrow">0{i + 2} / CHINA — EUROPE</p>
+                <h2>{title}</h2>
+                <p class="muted">
+                  {
+                    [ui.results[0], ui.permissions, ui.coverage, ui.fileTools][
+                      i
+                    ]
+                  }
+                </p>
+                <span class="tag">20 / 400 kg</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="journey-map">
+          <span class="eyebrow">CN → EU / {ui.labels.example}</span>
+          <svg viewBox="0 0 1600 900" role="img" aria-label={ui.journey[0]}>
+            <defs>
+              <pattern
+                id="grid"
+                width="80"
+                height="80"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M80 0H0V80"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-opacity=".08"
+                />
+              </pattern>
+            </defs>
+            <rect width="1600" height="900" fill="url(#grid)" />
+            <g class="land">
+              <path d="M350 100L520 60 610 130 730 100 880 160 1060 110 1290 180 1470 280 1430 360 1310 330 1270 370 1190 380 1160 460 1100 430 1050 340 980 340 950 430 900 400 850 310 790 280 720 320 690 290 640 270 600 280 530 240 500 280 450 250 420 230 360 240 330 200Z" />
+              <path d="M440 380L570 350 640 390 670 460 710 530 660 650 580 750 510 650 480 540 400 470Z" />
+              <path d="M1210 690L1400 630 1490 710 1440 800 1270 810Z" />
+            </g>
+            <path d={seaRoute} class="route-base" />
+            <path d={seaRoute} class="route-draw" />
+            <g class="route-marker">
+              <circle r="18" fill="currentColor" />
+              <circle r="30" fill="none" stroke="currentColor" />
+            </g>
+            <g class="ports">
+              <circle cx="1270" cy="370" r="12" />
+              <circle cx="420" cy="230" r="12" />
+            </g>
+            <g class="map-label">
+              <text x="1210" y="310">
+                CN
+              </text>
+              <text x="350" y="180">
+                EU
+              </text>
+              <text x="860" y="690">
+                INDIAN OCEAN
+              </text>
+            </g>
+            <g
+              class="freight-icons"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="5"
+            >
+              <path d="M1320 380v-60h25v20l25-20v60zM1330 380v-16h14v16M360 290h60l-14 20h-32zM383 290v-25h14v25M440 220h40v25h-40zM480 230h15l10 15h-25M450 250a6 6 0 1 0 0 .1M493 250a6 6 0 1 0 0 .1" />
+            </g>
+          </svg>
+          <p class="journey-caption">{ui.journey[0]}</p>
+        </div>
+      </div>
+      <ol class="journey-stages">
+        {ui.journey.map((stage, i) => (
+          <li data-stage={i}>
+            <span>0{i + 1}</span>
+            {stage}
+          </li>
+        ))}
+      </ol>
+      <div class="hero-bottom">
+        <span>{ui.hero.scroll} ↓</span>
+        <span class="eyebrow">CHINA — EUROPE / 01</span>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  import "../../scripts/hero-journey";
+</script>

@@ -11,15 +11,24 @@
     "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
-    "format:check": "prettier --check astro.config.ts site.config.ts src"
+    "format:check": "prettier --check astro.config.ts site.config.ts src",
+    "test": "vitest run tests/unit",
+    "build:release": "node scripts/build-release.mjs",
+    "test:e2e": "npm run build && node scripts/prepare-test-site.mjs && playwright test"
   },
   "dependencies": {
-    "astro": "7.4.12"
+    "astro": "7.4.12",
+    "gsap": "3.15.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
+    "lighthouse": "13.6.0",
     "prettier": "3.10.1",
     "prettier-plugin-astro": "1.1.2",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vitest": "5.1.0",
+    "wrangler": "4.163.0"
   }
 }

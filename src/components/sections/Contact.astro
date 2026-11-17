@@ -1,0 +1,123 @@
+---
+import type { Locale } from "../../lib/site-config";
+import { content } from "../../lib/i18n";
+import { siteConfig } from "../../../site.config";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const { ui, copy } = content(locale);
+const fields = [
+  "name",
+  "company",
+  "email",
+  "wechat",
+  "phone",
+  "message",
+] as const;
+const limits = {
+  name: 80,
+  company: 120,
+  email: 254,
+  wechat: 100,
+  phone: 40,
+  message: 2000,
+};
+---
+
+<section id="contact" class="section">
+  <div class="container split">
+    <div>
+      <span class="section-number">10 / KUSTOCARGO</span>
+      <h2>{copy.contact.title}</h2>
+      <p>{copy.contact.body}</p>
+      <p class="muted">{ui.form.privacy}</p>
+    </div>
+    <form
+      class="panel"
+      method="post"
+      novalidate
+      data-contact
+      data-locale={locale}
+      data-config={JSON.stringify(siteConfig.form)}
+      data-messages={JSON.stringify(ui.form)}
+    >
+      <p data-status role="status" tabindex="-1">
+        {siteConfig.form.mode === "disabled"
+          ? ui.form.disabled
+          : ui.form.noscript}
+      </p>
+      <p id="contact-group" class="muted">
+        {ui.form.group}
+      </p>
+      <fieldset disabled>
+        <div class="form-grid">
+          {fields.map((field) => (
+            <div class:list={["field", { wide: field === "message" }]}>
+              <label for={`contact-${field}`}>{ui.form.labels[field]}</label>
+              {field === "message" ? (
+                <textarea
+                  id={`contact-${field}`}
+                  name={field}
+                  maxlength={limits[field]}
+                  rows="4"
+                  aria-describedby={`error-${field}`}
+                />
+              ) : (
+                <input
+                  id={`contact-${field}`}
+                  name={field}
+                  type={
+                    field === "email"
+                      ? "email"
+                      : field === "phone"
+                        ? "tel"
+                        : "text"
+                  }
+                  maxlength={limits[field]}
+                  required={field === "name" || field === "company"}
+                  autocomplete={
+                    field === "name"
+                      ? "name"
+                      : field === "company"
+                        ? "organization"
+                        : field === "email"
+                          ? "email"
+                          : field === "phone"
+                            ? "tel"
+                            : "off"
+                  }
+                  aria-describedby={`${field === "email" || field === "wechat" ? "contact-group " : ""}error-${field}`}
+                />
+              )}
+              <span class="field-error" id={`error-${field}`}></span>
+            </div>
+          ))}
+          <div class="field wide">
+            <label for="contact-intent">{ui.form.labels.intent}</label>
+            <select
+              id="contact-intent"
+              name="intent"
+              aria-describedby="error-intent"
+            >
+              <option value="demo">{ui.hero.demo}</option>
+              <option value="trial">{ui.hero.trial}</option>
+            </select>
+            <span class="field-error" id="error-intent"></span>
+          </div>
+        </div>
+        <button class="primary" type="submit" style="margin-top:24px">
+          {siteConfig.form.mode === "disabled"
+            ? ui.form.unavailable
+            : ui.form.submit}
+        </button>
+      </fieldset>
+      <noscript>
+        <p>{ui.form.noscript}</p>
+      </noscript>
+    </form>
+  </div>
+</section>
+<script>
+  import "../../scripts/contact-form";
+</script>

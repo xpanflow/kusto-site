@@ -1,0 +1,125 @@
+.journey-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.journey h1 {
+  font-size: clamp(2.25rem, 4.5vw, 4.5rem);
+}
+.journey-map {
+  min-width: 0;
+  color: var(--color-mint);
+}
+.journey-map svg {
+  width: 100%;
+  overflow: visible;
+}
+.land {
+  fill: #264459;
+  stroke: #456174;
+  stroke-width: 2;
+}
+.route-base {
+  stroke: #b8c8d4;
+  stroke-width: 3;
+  fill: none;
+  stroke-dasharray: 8 10;
+}
+.route-draw {
+  stroke: var(--color-mint);
+  stroke-width: 6;
+  fill: none;
+}
+.route-marker {
+  color: var(--color-mint);
+  transform: translate(1270px, 370px);
+}
+.ports {
+  fill: var(--color-mint);
+}
+.map-label {
+  fill: var(--color-light);
+  font:
+    24px ui-monospace,
+    monospace;
+}
+.journey-caption {
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+.journey-stages {
+  list-style: none;
+  padding: 24px 0 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  border-top: 1px solid #ffffff30;
+  margin: 32px 0 0;
+}
+.journey-stages li {
+  font-size: 13px;
+  color: var(--color-light);
+}
+.journey-stages span {
+  display: block;
+  font:
+    12px ui-monospace,
+    monospace;
+  color: var(--color-mint);
+  margin-bottom: 8px;
+}
+.journey-stages li.active {
+  color: white;
+}
+.journey .hero-bottom {
+  margin-top: 32px;
+}
+.journey-enhanced {
+  height: 300svh;
+}
+.journey-enhanced .journey-sticky {
+  position: sticky;
+  top: var(--header-height);
+  min-height: calc(100svh - var(--header-height));
+  display: flex;
+  align-items: center;
+}
+.journey-enhanced .hero-intro {
+  padding-block: 36px;
+}
+@media (max-width: 1023px) {
+  .journey-layout {
+    grid-template-columns: 1fr;
+  }
+  .journey-map {
+    max-width: 680px;
+  }
+  .journey-stages {
+    grid-template-columns: 1fr;
+  }
+  .journey-stages li {
+    display: flex;
+    gap: 16px;
+  }
+  .journey-stages span {
+    margin: 0;
+  }
+  .journey-map svg {
+    max-height: 320px;
+  }
+  .hero-intro {
+    padding-block: 48px;
+  }
+}
+.journey-story .eyebrow {
+  margin-top: 32px;
+}
+.journey-story h2 {
+  font-size: clamp(2.25rem, 4vw, 4rem);
+}
+.journey-enhanced .journey-copy {
+  min-height: 440px;
+  display: flex;
+  align-items: center;
+}

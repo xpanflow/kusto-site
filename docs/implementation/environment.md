@@ -61,3 +61,9 @@ Astro 的运行时要求来自[官方安装文档](https://docs.astro.build/en/i
 - `npm run build`：通过，生成 `dist/index.html` 和 `dist/en/index.html`，静态输出共 2 页。
 - `npm run preview -- --host 127.0.0.1`：本地 4321 端口启动；HTTP 获取两页并核对 lang/H1 成功。
 - `npm run dev -- --host 127.0.0.1 --port 4322`：本地启动；HTTP 获取两页并核对 lang/H1 成功。受限沙箱需要允许本机监听与 localhost 请求；检查结束后服务进程已退出。
+
+## Cloud 实施更新（2026-11-16）
+
+本次从main bce468b恢复。复用已安装Node24.22.3、Chromium `/usr/bin/chromium` 和npm可写cache；新增精确依赖GSAP3.15.1、Playwright1.65.1、Vitest5.1.0、Axe4.14.0、Lighthouse13.6.0、Wrangler4.163.0。版本见package.json/lockfile。依赖安装未关闭完整性或TLS校验。
+
+本地服务：Astro dev 4321；Wrangler本地8787；浏览器测试临时静态服务4322/4323，由Playwright启动并关闭。需要 `ASTRO_TELEMETRY_DISABLED=1`；Wrangler可将 `XDG_CONFIG_HOME` 指向可写目录且禁用指标上报。源码变动后重新build再使用Wrangler检查。测试构建与公开构建严格分目录。

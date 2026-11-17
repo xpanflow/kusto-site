@@ -1,0 +1,35 @@
+{
+  "step": "07.1",
+  "time": "2026-11-16T21:47:16.858Z",
+  "target": "#workflow",
+  "results": [
+    {
+      "locale": "zh",
+      "size": "desktop",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "zh",
+      "size": "mobile",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "en",
+      "size": "desktop",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "en",
+      "size": "mobile",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    }
+  ]
+}

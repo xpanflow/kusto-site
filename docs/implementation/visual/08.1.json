@@ -1,0 +1,35 @@
+{
+  "step": "08.1",
+  "time": "2026-11-16T21:48:06.084Z",
+  "target": "#ai",
+  "results": [
+    {
+      "locale": "zh",
+      "size": "desktop",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "zh",
+      "size": "mobile",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "en",
+      "size": "desktop",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "en",
+      "size": "mobile",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    }
+  ]
+}

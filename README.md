@@ -1,57 +1,39 @@
-# Kusto Cargo Website
+# KustoCargo · 途序
 
-A static marketing and main product website for **Kusto Cargo**, a product currently being developed for a customer.
+面向小微货代的双语产品介绍网站：中文 `/`，英文 `/en/`。Astro 静态输出，原生 CSS/TypeScript 与 GSAP 航线增强；托管到 Cloudflare Workers 静态资源。网站中的业务、AI、追踪及 MCP 都是明确标注的示例。
 
-## Planned experience
+## 开发
 
-- A single page with sections revealed as visitors scroll down.
-- Rich visual content that introduces the product and its value.
-- A final section with a form for requesting trial access or sending a general enquiry.
-- Chinese-first content with an English version; an animated opening followed by readable feature sections with simplified product UI illustrations.
-
-## References
-
-- Product source: `../kusto-cargo` (locally at `/home/xiaopan/workspace/kusto-cargo`).
-- Design process reference: the previously discussed `.github/prompt/reference/` prompts for a personal portfolio website; that directory is not present in this checkout.
-
-Use the reference's detailed planning and specification process as inspiration. Define this site's content and visual identity independently. Its multi-page structure, technology choices, and agent build workflow are not requirements for this project.
-
-## Selected brand direction
-
-- Brand name: **KustoCargo · 途序**.
-- Logo: **option 02, interlocking connections**, in the middle row of the [third exploration board](docs/brand/logo-exploration-v3.png), selected on 2026-11-16. Options 01 and 03 are not selected.
-- Meaning: connected participants and adaptable freight workflows.
-- Logo colors: deep ocean navy (`#10283F`) and teal (`#087F8C`), with no yellow/orange accent.
-- Website direction: a dark opening with light content sections; a China–Europe shipment journey shown through an animated route map.
-- The board is a visual reference generated with the built-in image generation tool, not a production logo asset. Vector artwork and final lockup proportions remain to be prepared. The [generation prompt](docs/brand/logo-exploration-v3-prompt.txt) is retained alongside the board.
-
-## Current status
-
-The [site brief](docs/site-brief.md) records confirmed interview decisions and clearly separates proposed details. The initial website release is planned as static assets on Cloudflare Workers, connected to GitHub. The owner will connect and publish it manually.
-
-The demo/trial form requires name, company, intent, and at least one of email or WeChat. Phone and requirements are optional. The user will configure submission handling later; see the [manual TODO](docs/manual-todo.md).
-
-**Astro with static output is the selected framework.** The local Astro development environment and minimal Chinese/English pages are working. The remaining product page sections and visual design are tracked in the implementation prompts.
-
-## Local development
-
-Use the Node version pinned in `.nvmrc` and `.node-version`:
+使用 `.nvmrc` / `.node-version` 指定的 Node 24.22.3：
 
 ```bash
-source "$HOME/.nvm/nvm.sh"
-nvm use
 npm ci
 npm run dev
 ```
 
-Open `http://localhost:4321/` for Chinese and `http://localhost:4321/en/` for English. To verify the current scaffold, run `npm run check`, `npm run format:check`, and `npm run build`; `npm run preview` serves the static build locally. The built files are in `dist/`.
+云环境工具路径：`export PATH=/workspace/.onboarding-tools/node-v24.22.3-linux-x64/bin:$PATH`；受限用户目录可设置 `npm_config_cache=/workspace/.onboarding-tools/npm-cache`、`ASTRO_TELEMETRY_DISABLED=1`。现有 checkout 已隔离，无需额外 worktree。
 
-In a restricted environment that cannot write Astro's user configuration directory, set `ASTRO_TELEMETRY_DISABLED=1` before the Astro commands. The current config has no public domain and the pages carry `noindex,nofollow` until the SEO/release stage.
+```bash
+npm run check
+npm run format:check
+npm test
+npm run test:e2e
+npm run build
+npm run preview
+npx wrangler dev --local --ip 127.0.0.1 --port 8787
+```
 
-## Implementation prompts
+浏览器测试使用 Chromium（默认 `/usr/bin/chromium`，可用 `CHROMIUM_PATH` 指定）；测试构建 `.test-site` 仅复制白名单源码与配置、链接现有依赖，接收地址由 Playwright 拦截，无真实提交。不要发布 `.test-site/dist`。
 
-The [KustoCargo prompt package](.github/prompt/kusto-cargo/README.md) contains the executable design/development specifications, bilingual content baseline, animation storyboard, form contract, visual checks for each step, quality gates and a Cloudflare Workers handoff.
+唯一非秘密运行配置在 `site.config.ts`。默认域名为空、表单 disabled；预览 noindex。`npm run build:release` 要求真实域名和表单配置或用户明确的展示站豁免。
 
-For the full local build, use [AUTONOMOUS-BUILD.md](.github/prompt/kusto-cargo/AUTONOMOUS-BUILD.md). It tells an Agent to complete every self-contained development step, inspect the rendered result after each step, and stop before GitHub connection or publishing.
+## 实施与交接
 
-Start with [00-START-HERE.md](.github/prompt/kusto-cargo/00-START-HERE.md) and resume from [PROGRESS.md](.github/prompt/kusto-cargo/PROGRESS.md). There are 13 phases: local environment and the Astro scaffold are in place, the new per-step visual baseline is next, and the final publication phase belongs to the owner.
+- [准确进度](.github/prompt/kusto-cargo/PROGRESS.md)
+- [QA 报告](docs/implementation/qa-report.md)
+- [逐步视觉证据](docs/implementation/visual-review.md)
+- [素材来源](docs/design/assets.md)
+- [Cloudflare 手动发布手册](docs/implementation/release-runbook.md)
+- [用户待办](docs/manual-todo.md)
+
+本次按用户另行授权提交并推送代码；正式发布仍由用户连接 Cloudflare 并手动激活版本。保留 Workers Builds 的 deploy command 为 `npx wrangler versions upload`，避免默认 push 自动上线行为。

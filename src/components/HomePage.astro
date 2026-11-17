@@ -1,102 +1,88 @@
 ---
 import type { Locale } from "../lib/site-config";
-import { siteConfig } from "../../site.config";
-
+import { content, languagePath } from "../lib/i18n";
+import Contact from "./sections/Contact.astro";
+import Features from "./sections/Features.astro";
+import Journey from "./sections/Journey.astro";
+import "../styles/journey.css";
+import Logo from "./layout/Logo.astro";
 interface Props {
   locale: Locale;
 }
-
 const { locale } = Astro.props;
-const isZh = locale === "zh-CN";
+const { copy, ui } = content(locale);
 ---
 
-<header>
-  <a href={siteConfig.paths[locale]} aria-label="KustoCargo">
-    KustoCargo <span>途序</span>
-  </a>
-  <nav aria-label={isZh ? "语言" : "Language"}>
-    <a
-      href={siteConfig.paths["zh-CN"]}
-      lang="zh-CN"
-      aria-current={isZh ? "page" : undefined}
-    >
-      中文
-    </a>
-    <a
-      href={siteConfig.paths.en}
-      lang="en"
-      aria-current={!isZh ? "page" : undefined}
-    >
-      English
-    </a>
-  </nav>
+<a class="skip" href="#main">
+  {ui.labels.skip}
+</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <Logo light />
+    <details class="site-menu">
+      <summary
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        {ui.labels.menu}
+      </summary>
+      <nav class="site-nav" id="site-nav" aria-label={ui.labels.menu}>
+        {["workflow", "ai", "tracking", "contact"].map((id, i) => (
+          <a href={`#${id}`}>{ui.nav[i]}</a>
+        ))}
+        <a
+          data-language
+          href={languagePath(locale)}
+          lang={locale === "en" ? "zh-CN" : "en"}
+        >
+          {locale === "en" ? "中文" : "English"} →
+        </a>
+      </nav>
+    </details>
+  </div>
 </header>
-
-<main>
-  <p>{isZh ? "为小微货代而设计" : "Built for small freight teams"}</p>
-  <h1>
-    {isZh
-      ? "让系统适应你的货代业务。"
-      : "Freight software that fits your workflow."}
-  </h1>
-  <p>
-    {isZh
-      ? "连接订单、单据、运输与费用。从标准版本开始，按你的实际流程定制，让 AI 融入日常工作。"
-      : "Connect bookings, documents, shipments and costs. Start with a standard version, tailor it to your operations, and bring AI into everyday work."}
-  </p>
-  <p>
-    {isZh
-      ? "完整产品介绍正在建设中。"
-      : "The full product website is in development."}
-  </p>
+<main id="main">
+  <Journey ui={ui} />
+  {Object.entries(copy)
+    .filter(([id]) => id !== "contact")
+    .map(([id, section], i) => (
+      <section id={id} class="section">
+        <div class:list={["container", { split: id === "workflow" }]}>
+          <div class="section-heading">
+            <span class="section-number">0{i + 2} / KUSTOCARGO</span>
+            <h2>{section.title}</h2>
+            <p class="muted">{section.body}</p>
+          </div>
+          <Features id={id} locale={locale} />
+        </div>
+      </section>
+    ))}
+  <section id="faq" class="section">
+    <div class="container split">
+      <h2>{locale === "en" ? "A few things to know." : "你可能想了解。"}</h2>
+      <div>
+        {ui.faq.map(([q, a]) => (
+          <details>
+            <summary>{q}</summary>
+            <p>{a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+  <Contact locale={locale} />
 </main>
-
-<style>
-  header {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1.5rem clamp(1rem, 4vw, 3rem);
-  }
-
-  header > a {
-    color: inherit;
-    font-size: 1.25rem;
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  header span {
-    font-size: 0.8em;
-    font-weight: 400;
-  }
-
-  nav {
-    display: flex;
-    gap: 1rem;
-  }
-
-  main {
-    margin: 12vh auto 0;
-    max-width: 48rem;
-    padding: 1rem;
-  }
-
-  h1 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    line-height: 1.15;
-  }
-
-  main > p {
-    font-size: 1.125rem;
-    line-height: 1.7;
-  }
-
-  @media (max-width: 520px) {
-    header {
-      align-items: flex-start;
-      flex-direction: column;
-    }
-  }
-</style>
+<footer class="footer dark">
+  <div class="container footer-inner">
+    <Logo light />
+    <p>{ui.footer}</p>
+    <span class="eyebrow">CHINA ↔ EUROPE</span>
+  </div>
+</footer>
+<script>
+  import "../scripts/navigation";
+</script>
+<script>
+  import "../scripts/feature-demos";
+</script>
