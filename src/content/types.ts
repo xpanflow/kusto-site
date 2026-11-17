@@ -12,6 +12,7 @@ export interface InterfaceContent {
   nav: string[];
   hero: {
     eyebrow: string;
+    accent: string;
     title: string;
     body: string;
     demo: string;
@@ -44,6 +45,7 @@ export interface InterfaceContent {
   tasks: string[];
   results: string[];
   mcpSteps: string[];
+  assistantExamples: string;
   faq: [string, string][];
   permissions: string;
   coverage: string;

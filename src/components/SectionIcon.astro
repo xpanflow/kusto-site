@@ -1,0 +1,55 @@
+---
+interface Props {
+  name: string;
+}
+const { name } = Astro.props;
+const paths: Record<string, string> = {
+  journey: "M3 7h18v13H3zM7 7V4h10v3M8 11v5m4-5v5m4-5v5M1 20h22",
+  workflow: "M4 3h6v6H4zM14 15h6v6h-6zM7 9v8h7M10 6h7v9M14 12l3 3 3-3",
+  collaboration: "M9 4h6v6H9zM2 16h6v6H2zM16 16h6v6h-6zM12 10v3M5 16v-3h14v3",
+  finance: "M5 2h14v20l-3-2-4 2-4-2-3 2zM8 7h8M8 11h3M8 15h3M14 14l2 2 4-4",
+  ai: "M8 5h8a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3zM9 1v4m6-4v4M9 19v4m6-4v4M1 9h4m-4 6h4m14-6h4m-4 6h4M12 8l1.2 2.8L16 12l-2.8 1.2L12 16l-1.2-2.8L8 12l2.8-1.2z",
+  tracking:
+    "M12 22s7-7 7-13a7 7 0 0 0-14 0c0 6 7 13 7 13zM15 9a3 3 0 1 1-6 0 3 3 0 0 1 6 0",
+  mcp: "M9 15l6-6M7 17l-1 1a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0M17 7l1-1a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0",
+  deployment:
+    "M4 3h16v7H4zM4 14h16v7H4zM7 6.5h.01M7 17.5h.01M12 6.5h5M12 17.5h5M12 10v4",
+  faq: "M21 11a9 9 0 0 1-9 9H7l-5 2 1-6a9 9 0 1 1 18-5M9 8a3 3 0 0 1 6 0c0 2-3 2-3 4m0 3h.01",
+  contact: "M3 5h18v14H3zM3 5l9 7 9-7",
+};
+---
+
+<span class="section-icon" aria-hidden="true">
+  <svg
+    width="28"
+    height="28"
+    viewBox="-2 -2 28 28"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    focusable="false"
+  >
+    <path d={paths[name]} />
+  </svg>
+</span>
+<style>
+  .section-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    border: 1px solid #08758230;
+    border-radius: 14px;
+    background: #0875820a;
+    color: var(--color-teal);
+  }
+  :global(.dark) .section-icon {
+    color: var(--color-mint);
+    border-color: #55d6c240;
+    background: #55d6c20a;
+  }
+</style>

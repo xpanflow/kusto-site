@@ -255,3 +255,14 @@
     gap: 0;
   }
 }
+
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.section-kicker .section-number,
+.section-kicker .eyebrow {
+  margin: 0;
+}

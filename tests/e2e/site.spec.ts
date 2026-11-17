@@ -73,7 +73,7 @@ test("no JS and animation failure retain all content", async ({ browser }) => {
     await page.goto("http://127.0.0.1:4322/en/");
     await expect(page.locator("h1")).toBeVisible();
     await page.locator(".menu-toggle").click();
-    await expect(page.locator("nav")).toBeVisible();
+    await expect(page.locator("#site-nav")).toBeVisible();
     await expect(page.locator("#contact")).toBeVisible();
     await expect(page.locator("[name=name]")).toBeDisabled();
     await page.close();

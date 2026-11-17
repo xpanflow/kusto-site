@@ -5,7 +5,7 @@
 用户已确认定位与能力方向；下列标题、英文翻译、区段顺序与示例是本次实施基线，允许在保持含义的前提下做必要排版润色。重大定位改变应先记录原因，不能默默替换。
 
 - 目标读者：2–20 人的小微货代经营者，中国企业及中欧网络。
-- 核心差异：团队按客户实际业务进行定制开发，提供标准版本作为起点，客户选择托管或自部署并管理自己的数据。
+- 核心差异：AI 原生集成到单据与业务操作，支持通过 MCP 连接常用 AI 助手；团队按客户实际业务进行定制开发，提供标准版本作为起点，客户选择托管或自部署并管理自己的数据。
 - 页面介绍产品化方案，不逐项罗列当前开发进度。不得编造已签约客户、节省比例、获奖、认证、追踪覆盖数量或合作方 Logo。
 - 不把“团队定制开发”写成现成的无代码拖拽搭建器；不把权限继承写成管理员特权；不暗示 AI 自行执行全部动作。
 - 多方业务使用明确角色：采购客户、工厂、出口主体、进口主体、实际收发货人和代理。网站聚焦职责与信息连接。
@@ -36,8 +36,8 @@
 | 项目 | 中文 | English |
 | --- | --- | --- |
 | 眉题 | 为小微货代而设计 | Built for small freight teams |
-| H1 | 国际货代 TMS 系统 | International freight forwarding TMS |
-| 说明 | 以标准版本为起点，由我们的团队按你的业务流程定制，连接订单、单据、运输与费用，让 AI 融入日常工作。 | Start with a standard TMS. Our team tailors it to your workflows, connecting bookings, documents, shipments and costs with AI assistance. |
+| H1 | AI 原生 · 国际货代 TMS 系统 | AI-native international freight forwarding TMS |
+| 说明 | 将 AI 融入订单、单据、运输与费用：整理资料、核对差异、跟进业务。按你的流程定制，并通过 MCP 连接常用 AI 助手，让 AI 与团队在同一套业务系统里协作。 | AI integrated into bookings, documents, shipments and costs. Organize information, check discrepancies and follow up on jobs. Tailor workflows to your team and connect your preferred AI assistants through MCP. |
 | 主 CTA | 预约演示 | Request a demo |
 | 次 CTA | 申请试用 | Request trial access |
 | 滚动提示 | 跟随一票货，了解途序 | Follow a shipment. Discover KustoCargo. |
@@ -82,7 +82,7 @@ English: Bring quotes, costs, receivables, payables and settlement records toget
 
 ### AI `ai`
 
-标题：**让 AI 参与工作，而不只是回答问题。 / Bring AI into the work, beyond the conversation.**
+标题：**AI 原生集成，贯穿货代日常工作。 / AI integrated into everyday freight operations.**
 
 正文：在对话中梳理业务，也在单据和业务页面直接调用 AI。整理资料、核对差异、查找待办，让信息更快进入可处理的状态。
 
@@ -116,9 +116,9 @@ English: Connect ocean and air freight tracking services to bring the latest shi
 
 标题：**保留熟悉的工具，连接新的能力。 / Keep your familiar tools. Connect new capabilities.**
 
-正文：通过 MCP，让兼容的 AI 助手连接 KustoCargo。继续使用本地 Excel 整理工作，同时查询业务记录、核对差异，并在权限范围内执行更新。
+正文：通过 MCP，让 WorkBuddy、Codex、Claude Code 等 AI 助手连接 KustoCargo。继续使用本地 Excel 整理工作，同时查询业务记录、核对差异，并在权限范围内执行更新。
 
-English: Use MCP to connect compatible AI assistants with KustoCargo. Keep working with local Excel files while querying job records, comparing changes and applying updates within your permissions.
+English: Connect AI assistants such as WorkBuddy, Codex and Claude Code to KustoCargo through MCP. Keep working with local Excel files while querying job records, comparing changes and applying updates within your permissions.
 
 三步：读取工作表 / Read your worksheet → 对照业务记录 / Compare job records → 核对并更新 / Review and update。
 
@@ -170,3 +170,7 @@ English: Request a demo or trial access. Explore the system, then talk through y
 ## 内容验收
 
 中英文键结构一致，所有正文、导航、交互、错误、状态和可访问名称都经过翻译。每页只有一个 H1；英文长度不同应自然换行，不挤压控件或删去关键含义。文案不能使客户误认为提交表单就会即时获得账号。
+
+## 2026-11-17 用户调整
+
+所有十个区块加入同系列自制线性 SVG 图标，包括首屏、FAQ 和联系。首屏 H1 内以薄荷色强调“AI 原生 / AI-native”，主产品名称保留国际货代 TMS。MCP 区块加入 WorkBuddy、Codex、Claude Code 品牌示例卡片；这不是合作伙伴或认证名单，连接需使用支持 MCP 的版本并配置权限，Excel 操作依赖各助手的文件工具。品牌图形来源与许可见 `docs/design/assets.md`。

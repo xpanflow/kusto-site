@@ -1,4 +1,5 @@
 ---
+import SectionIcon from "../SectionIcon.astro";
 import type { InterfaceContent } from "../../content/types";
 import { seaRoute } from "../../data/journey";
 interface Props {
@@ -13,8 +14,14 @@ const { ui } = Astro.props;
       <div class="journey-layout">
         <div class="journey-copy">
           <div class="journey-opening">
-            <p class="eyebrow">KUSTOCARGO / {ui.hero.eyebrow}</p>
-            <h1>{ui.hero.title}</h1>
+            <div class="section-kicker">
+              <SectionIcon name="journey" />
+              <p class="eyebrow">KUSTOCARGO / {ui.hero.eyebrow}</p>
+            </div>
+            <h1>
+              <span class="hero-accent">{ui.hero.accent}</span>
+              {ui.hero.title}
+            </h1>
             <p class="muted">{ui.hero.body}</p>
             <div class="actions">
               <a class="button primary" href="#contact" data-intent="demo">

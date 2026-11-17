@@ -13,7 +13,7 @@ export const en = {
     body: "Bring quotes, costs, receivables, payables and settlement records together. Separate confirmed and pending costs to understand each job’s estimated profit and payment progress.",
   },
   ai: {
-    title: "Bring AI into the work, beyond the conversation.",
+    title: "AI integrated into everyday freight operations.",
     body: "Work with AI in conversation and directly within documents and job pages. Organize information, check discrepancies and find outstanding tasks so your team can move work forward.",
   },
   tracking: {
@@ -22,7 +22,7 @@ export const en = {
   },
   mcp: {
     title: "Keep your familiar tools. Connect new capabilities.",
-    body: "Use MCP to connect compatible AI assistants with KustoCargo. Keep working with local Excel files while querying job records, comparing changes and applying updates within your permissions.",
+    body: "Connect AI assistants such as WorkBuddy, Codex and Claude Code to KustoCargo through MCP. Keep working with local Excel files while querying job records, comparing changes and applying updates within your permissions.",
   },
   deployment: {
     title: "Choose your deployment. Stay in control of your data.",
@@ -39,8 +39,9 @@ export const enUI = {
   nav: ["Capabilities", "AI assistant", "Tracking", "Get in touch"],
   hero: {
     eyebrow: "Built for small freight teams",
+    accent: "AI-native",
     title: "International freight forwarding TMS",
-    body: "Start with a standard TMS. Our team tailors it to your workflows, connecting bookings, documents, shipments and costs with AI assistance.",
+    body: "AI integrated into bookings, documents, shipments and costs. Organize information, check discrepancies and follow up on jobs. Tailor workflows to your team and connect your preferred AI assistants through MCP.",
     demo: "Request a demo",
     trial: "Request trial access",
     scroll: "Follow a shipment. Discover KustoCargo.",
@@ -90,6 +91,7 @@ export const enUI = {
     "Packing list: 20 cartons. Booking draft: 18 cartons. Review the source documents.",
     "Next steps: review carton count, add delivery address, confirm delivery costs.",
   ],
+  assistantExamples: "Choose the AI assistant you know",
   mcpSteps: ["Read your worksheet", "Compare job records", "Review and update"],
   faq: [
     [
@@ -113,7 +115,7 @@ export const enUI = {
   coverage:
     "Update frequency and coverage depend on the connected data provider.",
   fileTools:
-    "Local file handling depends on your agent and its file tools. MCP provides the system connection.",
+    "Use an assistant version that supports MCP, then configure the KustoCargo connection and permissions. Reading and editing local Excel files depends on the assistant’s file tools.",
   hosting: [
     "We help deploy and maintain the system so your team can focus on operations.",
     "Run the system in your own environment and manage data and operations to suit your company.",

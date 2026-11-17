@@ -1,6 +1,7 @@
 ---
 import type { Locale } from "../lib/site-config";
 import { content, languagePath } from "../lib/i18n";
+import SectionIcon from "./SectionIcon.astro";
 import Contact from "./sections/Contact.astro";
 import Features from "./sections/Features.astro";
 import Journey from "./sections/Journey.astro";
@@ -51,7 +52,10 @@ const copyrightYear = new Date().getUTCFullYear();
       <section id={id} class="section">
         <div class:list={["container", { split: id === "workflow" }]}>
           <div class="section-heading">
-            <span class="section-number">0{i + 2} / KUSTOCARGO</span>
+            <div class="section-kicker">
+              <SectionIcon name={id} />
+              <span class="section-number">0{i + 2} / KUSTOCARGO</span>
+            </div>
             <h2>{section.title}</h2>
             <p class="muted">{section.body}</p>
           </div>
@@ -61,7 +65,13 @@ const copyrightYear = new Date().getUTCFullYear();
     ))}
   <section id="faq" class="section">
     <div class="container split">
-      <h2>{locale === "en" ? "A few things to know." : "你可能想了解。"}</h2>
+      <div class="section-heading">
+        <div class="section-kicker">
+          <SectionIcon name="faq" />
+          <span class="section-number">09 / KUSTOCARGO</span>
+        </div>
+        <h2>{locale === "en" ? "A few things to know." : "你可能想了解。"}</h2>
+      </div>
       <div>
         {ui.faq.map(([q, a]) => (
           <details>

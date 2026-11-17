@@ -1,0 +1,68 @@
+[
+  {
+    "lang": "zh",
+    "size": "desktop",
+    "icons": 10,
+    "logosLoaded": true,
+    "overflow": false,
+    "errors": [],
+    "remote": []
+  },
+  {
+    "lang": "zh",
+    "size": "tablet",
+    "icons": 10,
+    "logosLoaded": true,
+    "overflow": false,
+    "errors": [],
+    "remote": []
+  },
+  {
+    "lang": "zh",
+    "size": "mobile",
+    "icons": 10,
+    "logosLoaded": true,
+    "overflow": false,
+    "errors": [],
+    "remote": []
+  },
+  {
+    "lang": "zh",
+    "size": "motion-1366x768",
+    "heroBottom": 777.5,
+    "viewportHeight": 768
+  },
+  {
+    "lang": "en",
+    "size": "desktop",
+    "icons": 10,
+    "logosLoaded": true,
+    "overflow": false,
+    "errors": [],
+    "remote": []
+  },
+  {
+    "lang": "en",
+    "size": "tablet",
+    "icons": 10,
+    "logosLoaded": true,
+    "overflow": false,
+    "errors": [],
+    "remote": []
+  },
+  {
+    "lang": "en",
+    "size": "mobile",
+    "icons": 10,
+    "logosLoaded": true,
+    "overflow": false,
+    "errors": [],
+    "remote": []
+  },
+  {
+    "lang": "en",
+    "size": "motion-1366x768",
+    "heroBottom": 789.109375,
+    "viewportHeight": 768
+  }
+]

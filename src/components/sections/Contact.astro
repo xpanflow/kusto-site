@@ -1,4 +1,5 @@
 ---
+import SectionIcon from "../SectionIcon.astro";
 import type { Locale } from "../../lib/site-config";
 import { content } from "../../lib/i18n";
 import { siteConfig } from "../../../site.config";
@@ -28,7 +29,10 @@ const limits = {
 <section id="contact" class="section">
   <div class="container split">
     <div>
-      <span class="section-number">10 / KUSTOCARGO</span>
+      <div class="section-kicker">
+        <SectionIcon name="contact" />
+        <span class="section-number">10 / KUSTOCARGO</span>
+      </div>
       <h2>{copy.contact.title}</h2>
       <p>{copy.contact.body}</p>
       <p class="muted">{ui.form.privacy}</p>
