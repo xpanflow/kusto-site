@@ -15,6 +15,18 @@ if (form) {
   const status = form.querySelector<HTMLElement>("[data-status]")!;
   const fieldset = form.querySelector<HTMLFieldSetElement>("fieldset")!;
   const button = form.querySelector<HTMLButtonElement>("[type=submit]")!;
+  const successPanel = document.querySelector<HTMLElement>(
+    "[data-contact-success]",
+  );
+  successPanel
+    ?.querySelector<HTMLButtonElement>("[data-success-again]")
+    ?.addEventListener("click", () => {
+      successPanel.hidden = true;
+      form.hidden = false;
+      form.dataset.state = "idle";
+      status.textContent = "";
+      form.querySelector<HTMLInputElement>("[name=name]")?.focus();
+    });
   let busy = false,
     lastPayload = "",
     requestId = "";
@@ -79,7 +91,11 @@ if (form) {
       requestId = "";
       form.dataset.state = "success";
       status.textContent = messages.success;
-      status.focus();
+      if (successPanel) {
+        form.hidden = true;
+        successPanel.hidden = false;
+        successPanel.focus();
+      } else status.focus();
     } else {
       form.dataset.state = "error";
       status.textContent = messages[result.kind];

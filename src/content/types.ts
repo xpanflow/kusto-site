@@ -62,6 +62,8 @@ export interface InterfaceContent {
     submit: string;
     sending: string;
     success: string;
+    successTitle: string;
+    successAgain: string;
     error: string;
     rate: string;
     required: string;

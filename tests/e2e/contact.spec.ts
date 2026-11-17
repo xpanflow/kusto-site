@@ -63,9 +63,11 @@ for (const response of [
       response === "success" ? "success" : "error",
     );
     if (response === "422" || response === "success")
-      await page.locator("form").screenshot({
-        path: `docs/implementation/visual/formspree-generic-${response}.png`,
-      });
+      await page
+        .locator(response === "success" ? "[data-contact-success]" : "form")
+        .screenshot({
+          path: `docs/implementation/visual/contact-confirm-generic-${response}.png`,
+        });
     expect(requests).toHaveLength(1);
     expect(requests[0]).toMatchObject({
       schemaVersion: 1,
@@ -211,17 +213,32 @@ for (const path of ["/", "/en/"]) {
         expect(requests[0]?.email).toBeUndefined();
         await expect(page.locator("[name=name]")).toHaveValue("");
         await expect(page).toHaveURL(new RegExp("#contact$"));
+        const confirmation = page.getByRole("region", {
+          name: path === "/" ? "提交已完成" : "Thank you for your message.",
+        });
+        await expect(confirmation).toBeVisible();
+        await expect(confirmation).toBeFocused();
+        await expect(page.locator("[data-contact]")).not.toBeVisible();
+        await confirmation.screenshot({
+          path: `docs/implementation/visual/contact-confirm-${path === "/" ? "zh" : "en"}-card.png`,
+        });
+        await confirmation.locator("[data-success-again]").click();
+        await expect(confirmation).not.toBeVisible();
+        await expect(page.locator("[data-contact]")).toHaveAttribute(
+          "data-state",
+          "idle",
+        );
+        await expect(page.locator("[name=name]")).toBeFocused();
       } else {
         await expect(page.locator("[name=name]")).toHaveValue("Example Person");
+        await expect(page.locator("[data-contact-success]")).not.toBeVisible();
         if (result === "field-error")
           await expect(page.locator("[name=email]")).toBeFocused();
       }
-      if (result === "success" || result === "field-error")
-        await page
-          .locator("form")
-          .screenshot({
-            path: `docs/implementation/visual/formspree-${path === "/" ? "zh" : "en"}-${result}.png`,
-          });
+      if (result === "field-error")
+        await page.locator("form").screenshot({
+          path: `docs/implementation/visual/contact-confirm-${path === "/" ? "zh" : "en"}-${result}.png`,
+        });
     });
   }
 }

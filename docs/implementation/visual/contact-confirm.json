@@ -1,0 +1,38 @@
+[
+  {
+    "lang": "zh",
+    "size": "desktop",
+    "requests": 1,
+    "mocked": true,
+    "errors": [],
+    "violations": [],
+    "overflow": false
+  },
+  {
+    "lang": "zh",
+    "size": "mobile",
+    "requests": 1,
+    "mocked": true,
+    "errors": [],
+    "violations": [],
+    "overflow": false
+  },
+  {
+    "lang": "en",
+    "size": "desktop",
+    "requests": 1,
+    "mocked": true,
+    "errors": [],
+    "violations": [],
+    "overflow": false
+  },
+  {
+    "lang": "en",
+    "size": "mobile",
+    "requests": 1,
+    "mocked": true,
+    "errors": [],
+    "violations": [],
+    "overflow": false
+  }
+]

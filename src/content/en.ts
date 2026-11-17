@@ -136,7 +136,9 @@ export const enUI = {
     submit: "Send request",
     sending: "Sending…",
     success:
-      "Your request has been received. We will contact you to arrange a demo or trial.",
+      "Our team will contact you as soon as possible using the details you provided to arrange a demo or trial.",
+    successTitle: "Thank you for your message.",
+    successAgain: "Send another message",
     error: "Unable to send. Please retry. Your details have been retained.",
     rate: "Too many requests. Please try again later.",
     required: "Please complete this field.",
