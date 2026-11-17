@@ -8,18 +8,32 @@ interface Props {
   screen: "bookings" | "import-job";
 }
 const { locale, screen } = Astro.props;
-const descriptions = {
+const examples = {
   bookings: {
-    "zh-CN":
-      "委托单示例：销售按客户和状态筛选委托，核对航线、预计出发和到达日期。",
-    en: "Demo bookings in the Chinese interface. Sales can filter by customer and status, then check the route and expected departure and arrival dates.",
+    title: {
+      "zh-CN": "从委托单安排运输",
+      en: "Plan a shipment from a booking",
+    },
+    caption: {
+      "zh-CN":
+        "以 B26-0033 为例，销售可以在委托单列表中核对法兰克福至上海的航线，以及预计出发和到达日期。",
+      en: "In this Chinese demo, sales can check booking B26-0033 from Frankfurt to Shanghai, including its expected departure and arrival dates.",
+    },
   },
   "import-job": {
-    "zh-CN":
-      "进口工作单 J26-0033：进口部接手法兰克福至上海的空运业务，可查看各部门进度，以及待补的商业发票和装箱单。",
-    en: "Demo import job J26-0033 in the Chinese interface. The import team can see each department’s progress and the missing commercial invoice and packing list for the Frankfurt–Shanghai air shipment.",
+    title: {
+      "zh-CN": "在工作单里交接资料",
+      en: "Hand over documents in the job record",
+    },
+    caption: {
+      "zh-CN":
+        "工作单 J26-0033 显示了各部门的进度。进口部接手时，就能看到还需补齐商业发票和装箱单。",
+      en: "Demo job J26-0033 shows each department’s progress in the Chinese interface. The import team can see that the commercial invoice and packing list are still missing.",
+    },
   },
 };
+const example = examples[screen];
+const openLabel = locale === "en" ? "View full-size screenshot" : "查看原图";
 function screenshotUrl(device: "desktop" | "mobile") {
   const base = `assets/product/${screen}-${device}`;
   const extension = ["png", "webp", "jpg", "jpeg"].find((ext) =>
@@ -37,51 +51,160 @@ const desktop =
 
 {desktopUrl && mobileUrl && (
   <figure class="container product-screen">
-    <picture>
-      <source
-        media="(max-width: 767px)"
-        srcset={mobileUrl}
-        width="390"
-        height="844"
-      />
-      <img
-        src={desktopUrl}
-        {...desktop}
-        loading="lazy"
-        decoding="async"
-        alt={
-          screen === "bookings"
-            ? locale === "en"
-              ? "Booking list with B26-0033 confirmed"
-              : "委托单列表，B26-0033 已确认"
-            : locale === "en"
-              ? "Import job showing outstanding documents and pickup fields"
-              : "进口工作单的待补资料提示与提货字段"
-        }
-      />
-    </picture>
-    <figcaption>{descriptions[screen][locale]}</figcaption>
+    <figcaption>
+      <strong>{example.title[locale]}</strong>
+      <p>{example.caption[locale]}</p>
+      <a class="open-desktop" href={desktopUrl}>
+        {openLabel}
+      </a>
+      <a class="open-mobile" href={mobileUrl}>
+        {openLabel}
+      </a>
+    </figcaption>
+    <div class="stage">
+      <div class="device">
+        <span class="chrome" aria-hidden="true">
+          <i></i>
+          <i></i>
+          <i></i>
+        </span>
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            srcset={mobileUrl}
+            width="390"
+            height="844"
+          />
+          <img
+            src={desktopUrl}
+            {...desktop}
+            loading="lazy"
+            decoding="async"
+            alt={
+              screen === "bookings"
+                ? locale === "en"
+                  ? "Booking list with B26-0033 confirmed"
+                  : "委托单列表，B26-0033 已确认"
+                : locale === "en"
+                  ? "Import job showing outstanding documents and pickup fields"
+                  : "进口工作单的待补资料提示与提货字段"
+            }
+          />
+        </picture>
+      </div>
+    </div>
   </figure>
 )}
 <style>
   .product-screen {
-    margin-block: clamp(2rem, 5vw, 4rem) 0;
+    display: grid;
+    grid-template-columns: minmax(12rem, 1fr) minmax(0, 2.5fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    border-top: 1px solid var(--color-border);
+    margin-block: clamp(2rem, 4vw, 3.5rem) 0;
+    padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  figcaption strong {
+    display: block;
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+  figcaption p {
+    margin: 0.75rem 0 0.5rem;
+    color: var(--color-muted);
+    max-width: 36ch;
+  }
+  figcaption a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-underline-offset: 0.22em;
+  }
+  figcaption .open-mobile {
+    display: none;
+  }
+  .stage {
+    padding: clamp(16px, 3vw, 40px);
+    border-radius: var(--radius-panel);
+    background: color-mix(in srgb, var(--color-border) 40%, var(--color-page));
+  }
+  .device {
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-surface);
+    box-shadow: 0 8px 20px
+      color-mix(in srgb, var(--color-ocean) 9%, transparent);
+  }
+  .chrome {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-inline: 12px;
+    background: var(--color-page);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .chrome i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-light);
   }
   .product-screen img {
     display: block;
     width: 100%;
     height: auto;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-panel);
   }
-  figcaption {
-    color: var(--color-muted);
-    font-size: 0.9rem;
-    margin-top: 0.75rem;
+  @media (max-width: 900px) {
+    .product-screen {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    figcaption p {
+      max-width: 60ch;
+    }
   }
   @media (max-width: 767px) {
-    .product-screen {
-      max-width: 390px;
+    figcaption .open-desktop {
+      display: none;
+    }
+    figcaption .open-mobile {
+      display: inline-flex;
+    }
+    .stage {
+      padding: 24px 12px;
+    }
+    .device {
+      max-width: 284px;
+      margin-inline: auto;
+      padding: 0 4px 10px;
+      border: 1px solid var(--color-muted);
+      border-radius: 24px;
+      background: var(--color-ocean);
+    }
+    .chrome {
+      height: 16px;
+      justify-content: center;
+      border: 0;
+      background: transparent;
+    }
+    .chrome i {
+      display: none;
+    }
+    .chrome::before {
+      content: "";
+      width: 32px;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--color-muted);
+    }
+    .product-screen img {
+      border-radius: 8px 8px 15px 15px;
     }
   }
 </style>
