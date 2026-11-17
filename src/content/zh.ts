@@ -142,4 +142,5 @@ export const zhUI = {
     noscript: "需要启用 JavaScript 才可在线申请。",
   },
   footer: "连接业务的每一步。",
+  backToTop: "返回顶部",
 } satisfies InterfaceContent;

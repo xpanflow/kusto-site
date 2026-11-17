@@ -11,6 +11,7 @@ interface Props {
 }
 const { locale } = Astro.props;
 const { copy, ui } = content(locale);
+const copyrightYear = new Date().getUTCFullYear();
 ---
 
 <a class="skip" href="#main">
@@ -78,6 +79,13 @@ const { copy, ui } = content(locale);
     <Logo light />
     <p>{ui.footer}</p>
     <span class="eyebrow">CHINA ↔ EUROPE</span>
+  </div>
+  <div class="container footer-bottom">
+    <small>© {copyrightYear} KustoCargo · 途序</small>
+    <nav aria-label={locale === "en" ? "Footer" : "页脚导航"}>
+      <a href="#contact">{ui.nav[3]}</a>
+      <a href="#journey">{ui.backToTop} ↑</a>
+    </nav>
   </div>
 </footer>
 <script>

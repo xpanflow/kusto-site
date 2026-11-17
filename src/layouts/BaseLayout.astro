@@ -7,8 +7,9 @@ import { siteConfig } from "../../site.config";
 interface Props {
   locale: Locale;
   title: string;
+  indexable?: boolean;
 }
-const { locale, title } = Astro.props;
+const { locale, title, indexable = true } = Astro.props;
 const { ui } = content(locale);
 const origin = siteConfig.siteUrl;
 const url = origin ? origin + siteConfig.paths[locale] : "";
@@ -25,10 +26,10 @@ const share = `/images/og-${locale === "en" ? "en" : "zh"}.png`;
     <meta name="description" content={description} />
     <meta
       name="robots"
-      content={origin ? "index,follow" : "noindex,nofollow"}
+      content={origin && indexable ? "index,follow" : "noindex,nofollow"}
     />
     <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
-    {origin && (
+    {origin && indexable && (
       <>
         <link rel="canonical" href={url} />
         <link rel="alternate" hreflang="zh-CN" href={`${origin}/`} />
@@ -49,7 +50,7 @@ const share = `/images/og-${locale === "en" ? "en" : "zh"}.png`;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={origin + share} />
-    {origin && (
+    {origin && indexable && (
       <script
         type="application/ld+json"
         set:html={JSON.stringify({

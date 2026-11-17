@@ -1,0 +1,35 @@
+{
+  "step": "footer-2026",
+  "time": "2026-11-17T08:15:57.021Z",
+  "target": "footer",
+  "results": [
+    {
+      "locale": "zh",
+      "size": "desktop",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "zh",
+      "size": "mobile",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "en",
+      "size": "desktop",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    },
+    {
+      "locale": "en",
+      "size": "mobile",
+      "errors": [],
+      "remote": [],
+      "overflow": false
+    }
+  ]
+}

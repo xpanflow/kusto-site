@@ -69,4 +69,5 @@ export interface InterfaceContent {
     noscript: string;
   };
   footer: string;
+  backToTop: string;
 }

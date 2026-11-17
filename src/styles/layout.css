@@ -67,6 +67,24 @@
   justify-content: space-between;
   gap: 32px;
 }
+.footer-bottom {
+  border-top: 1px solid #ffffff30;
+  margin-top: 40px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  color: var(--color-light);
+}
+.footer-bottom nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-bottom a {
+  color: inherit;
+}
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -169,6 +187,10 @@
   }
   .hero-bottom,
   .footer-inner {
+    flex-direction: column;
+  }
+  .footer-bottom {
+    align-items: flex-start;
     flex-direction: column;
   }
   .field.wide {

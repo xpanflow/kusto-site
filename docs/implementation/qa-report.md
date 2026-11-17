@@ -38,3 +38,5 @@ Lighthouse为本地Chromium移动模拟，不能代表真实中国/欧洲访问�
 公开域名、Worker最终名称、接收端、隐私主体、GitHub/Cloudflare连接与手动激活仍由用户完成。真实收件未验证。阶段13保持deferred；详见release-runbook.md与manual-todo.md。
 
 最终补充：初始外部与内联JavaScript gzip合计上界46,426 bytes，CSS gzip3,360 bytes，全制品268,278 bytes。已补remote成功/422两张实际状态截图并完成2项定向复测；主矩阵仍为21项，不将定向复测重复计入总数。
+
+2026-11-17 增量验证：页脚版权与导航、双语 sitemap 语言链接、正式配置下404不索引。`npm run check` 0错误/警告、`npm run format:check`、`npm run build` 通过；Chromium中英文手机实点页脚两个链接通过。预览 sitemap 0 条 URL、robots 禁止收录；隔离 HTTPS 测试配置 sitemap 2 条 URL，每条含两个语言替代链接，robots 指向 sitemap。四张页脚截图已实际查看，未重跑与改动无关的表单矩阵。正式域名仍由用户配置。

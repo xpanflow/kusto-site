@@ -145,4 +145,5 @@ export const enUI = {
     noscript: "Enable JavaScript to submit an online request.",
   },
   footer: "Connect every step of your business.",
+  backToTop: "Back to top",
 } satisfies InterfaceContent;

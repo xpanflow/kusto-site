@@ -37,3 +37,10 @@ Agent 完成本地实施与交接材料；上线操作遵循[阶段 13](../.gith
 ## 最终发布交接
 
 Worker 建议名称 `kusto-cargo-site`，用户确认并与配置保持一致；填写真实 HTTPS origin，连接 GitHub/Cloudflare，并按 [手动发布手册](implementation/release-runbook.md) 设置 build command `npm run build:release`、deploy command `npx wrangler versions upload`。用户检查版本后手动激活，完成线上双语/404/资源与实际表单收件验收。当前所有本地接收测试均为拦截模拟，不代表真实送达。阶段 13 仍 deferred。
+
+## 站点页脚与搜索收录
+
+- [ ] 确定正式 HTTPS 域名并设置 `site.config.ts` 的 `siteUrl`；预览配置的 sitemap 为空，robots 禁止收录，不能向搜索平台提交预览地址。
+- [ ] 上线后查看正式 `/sitemap.xml` 与 `/robots.txt`，向所使用的搜索平台提交 sitemap，并确认中文 `/`、英文 `/en/` 的 canonical 与语言替代链接指向正式域名。
+- [ ] 在启用表单前补齐真实隐私说明和接收主体；若需要独立隐私政策、服务条款或公司联系资料，提供准确内容后再添加页脚链接。
+- [ ] 仅在实际使用需要同意的 Cookie 或追踪工具时评估 Cookie 提示；当前站点不因通用模板而显示虚构的同意弹窗。
