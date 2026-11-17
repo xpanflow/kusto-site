@@ -1,6 +1,7 @@
 ---
 import type { Locale } from "../lib/site-config";
 import { content, languagePath } from "../lib/i18n";
+import ProductScreenshot from "./ProductScreenshot.astro";
 import SectionIcon from "./SectionIcon.astro";
 import Contact from "./sections/Contact.astro";
 import Features from "./sections/Features.astro";
@@ -61,6 +62,12 @@ const copyrightYear = new Date().getUTCFullYear();
           </div>
           <Features id={id} locale={locale} />
         </div>
+        {id === "workflow" && (
+          <ProductScreenshot locale={locale} screen="bookings" />
+        )}
+        {id === "collaboration" && (
+          <ProductScreenshot locale={locale} screen="import-job" />
+        )}
       </section>
     ))}
   <section id="faq" class="section">
