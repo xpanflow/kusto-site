@@ -54,51 +54,60 @@ const desktop =
     <figcaption>
       <strong>{example.title[locale]}</strong>
       <p>{example.caption[locale]}</p>
-      <a class="open-desktop" href={desktopUrl}>
-        {openLabel}
-      </a>
-      <a class="open-mobile" href={mobileUrl}>
-        {openLabel}
-      </a>
     </figcaption>
     <div class="stage">
-      <div class="device">
-        <span class="chrome" aria-hidden="true">
-          <i></i>
-          <i></i>
-          <i></i>
-        </span>
-        <picture>
-          <source
-            media="(max-width: 767px)"
-            srcset={mobileUrl}
-            width="390"
-            height="844"
-          />
-          <img
-            src={desktopUrl}
-            {...desktop}
-            loading="lazy"
-            decoding="async"
-            alt={
-              screen === "bookings"
-                ? locale === "en"
-                  ? "Booking list with B26-0033 confirmed"
-                  : "委托单列表，B26-0033 已确认"
-                : locale === "en"
-                  ? "Import job showing outstanding documents and pickup fields"
-                  : "进口工作单的待补资料提示与提货字段"
-            }
-          />
-        </picture>
-      </div>
+      {[
+        {
+          url: desktopUrl,
+          label: locale === "en" ? "Web" : "网页版",
+          size: desktop,
+          phone: false,
+        },
+        {
+          url: mobileUrl,
+          label: locale === "en" ? "Mobile" : "移动端",
+          size: { width: 390, height: 844 },
+          phone: true,
+        },
+      ].map(({ url, label, size, phone }) => (
+        <a
+          class:list={["preview", { phone }]}
+          href={url}
+          aria-label={`${label} · ${example.title[locale]} · ${openLabel}`}
+        >
+          <span class="device">
+            <span class="chrome" aria-hidden="true"></span>
+            <img
+              src={url}
+              {...size}
+              loading="lazy"
+              decoding="async"
+              alt={`${example.title[locale]} · ${label}`}
+            />
+          </span>
+          <span class="device-label">
+            {label}
+            <svg
+              aria-hidden="true"
+              width="13"
+              height="13"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path d="M3 13 13 3M4 3h9v9" />
+            </svg>
+          </span>
+        </a>
+      ))}
     </div>
   </figure>
 )}
 <style>
   .product-screen {
     display: grid;
-    grid-template-columns: minmax(12rem, 1fr) minmax(0, 2.5fr);
+    grid-template-columns: minmax(12rem, 1fr) minmax(0, 3fr);
     gap: clamp(2rem, 5vw, 5rem);
     align-items: center;
     border-top: 1px solid var(--color-border);
@@ -116,49 +125,88 @@ const desktop =
     color: var(--color-muted);
     max-width: 36ch;
   }
-  figcaption a {
-    display: inline-flex;
-    min-height: 44px;
-    align-items: center;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-underline-offset: 0.22em;
-  }
-  figcaption .open-mobile {
-    display: none;
-  }
   .stage {
-    padding: clamp(16px, 3vw, 40px);
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    gap: clamp(10px, 2vw, 24px);
+    align-items: end;
+    padding: clamp(14px, 2.5vw, 32px);
     border-radius: var(--radius-panel);
     background: color-mix(in srgb, var(--color-border) 40%, var(--color-page));
   }
+  .preview {
+    display: block;
+    min-width: 0;
+    text-decoration: none;
+    border-radius: 8px;
+  }
   .device {
+    display: block;
     overflow: hidden;
     border: 1px solid var(--color-border);
-    border-radius: 10px;
+    border-radius: 8px;
     background: var(--color-surface);
-    box-shadow: 0 8px 20px
+    box-shadow: 0 6px 18px
       color-mix(in srgb, var(--color-ocean) 9%, transparent);
   }
   .chrome {
-    height: 26px;
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding-inline: 12px;
+    height: clamp(12px, 1.8vw, 24px);
+    padding-inline: 8px;
     background: var(--color-page);
     border-bottom: 1px solid var(--color-border);
   }
-  .chrome i {
-    width: 6px;
-    height: 6px;
+  .chrome::before {
+    content: "";
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: var(--color-light);
+    box-shadow:
+      7px 0 var(--color-light),
+      14px 0 var(--color-light);
+  }
+  .phone .device {
+    padding: 0 3px 6px;
+    border-color: var(--color-muted);
+    border-radius: clamp(8px, 1.4vw, 18px);
+    background: var(--color-ocean);
+  }
+  .phone .chrome {
+    height: clamp(6px, 1vw, 12px);
+    justify-content: center;
+    border: 0;
+    background: transparent;
+  }
+  .phone .chrome::before {
+    width: 24%;
+    height: 2px;
+    border-radius: 4px;
+    background: var(--color-muted);
+    box-shadow: none;
+  }
+  .phone img {
+    border-radius: 3px 3px 7px 7px;
   }
   .product-screen img {
     display: block;
     width: 100%;
     height: auto;
+  }
+  .device-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    color: var(--color-teal);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .preview:hover .device-label,
+  .preview:focus-visible .device-label {
+    text-decoration: underline;
+    text-underline-offset: 0.22em;
   }
   @media (max-width: 900px) {
     .product-screen {
@@ -169,42 +217,14 @@ const desktop =
       max-width: 60ch;
     }
   }
-  @media (max-width: 767px) {
-    figcaption .open-desktop {
-      display: none;
-    }
-    figcaption .open-mobile {
-      display: inline-flex;
-    }
+  @media (max-width: 480px) {
     .stage {
-      padding: 24px 12px;
+      grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
+      padding: 12px;
+      gap: 10px;
     }
-    .device {
-      max-width: 284px;
-      margin-inline: auto;
-      padding: 0 4px 10px;
-      border: 1px solid var(--color-muted);
-      border-radius: 24px;
-      background: var(--color-ocean);
-    }
-    .chrome {
-      height: 16px;
-      justify-content: center;
-      border: 0;
-      background: transparent;
-    }
-    .chrome i {
-      display: none;
-    }
-    .chrome::before {
-      content: "";
-      width: 32px;
-      height: 3px;
-      border-radius: 2px;
-      background: var(--color-muted);
-    }
-    .product-screen img {
-      border-radius: 8px 8px 15px 15px;
+    .phone .device {
+      padding: 0 2px 3px;
     }
   }
 </style>
