@@ -6,7 +6,7 @@
 
 - 当前阶段：13（deferred / 用户手动发布）
 - 当前子步骤：13.1
-- 下一动作：用户按 `docs/implementation/release-runbook.md` 填写真实 HTTPS origin、Worker 名称与接收端，连接 GitHub/Cloudflare，审查并手动激活版本。
+- 下一动作：用户按 `docs/implementation/release-runbook.md` 在 Cloudflare 创建/连接 `kusto-cargo-site`，绑定 `kusto.xpanflow.com`，审查并手动激活版本，核对 Formspree 设置并验证真实收件。
 - 最近完成的实施步骤：12.4；02.4 与 03–12 的本地实现、检查和视觉证据已完成
 - 本地可交付：完成；代码与证据纳入本次用户授权的提交推送
 - 正式上线：未开始，Agent 未上传或激活版本
@@ -33,8 +33,8 @@
 
 | 事项 | 状态/负责人 | 影响与解除方式 |
 | --- | --- | --- |
-| 表单接收地址、渠道和服务设置 | deferred / 用户 | 本地默认 disabled；配置后做真实接收验证，见手动 TODO |
-| Worker 名称、公开 URL、GitHub/Cloudflare 连接 | deferred / 用户 | 不阻塞本地实现；阶段 12 使用占位说明，阶段 13 手动完成 |
+| Formspree 接收与通知 | 部分完成 / 用户 | endpoint 与适配器已配置；用户核对控制台设置并验证真实收件，见手动 TODO |
+| Worker/域名与 GitHub/Cloudflare 连接 | deferred / 用户 | 域名已设 kusto.xpanflow.com；控制台创建 Worker、域名绑定和激活仍由用户完成 |
 | 中国与欧洲访问测试 | deferred / 用户 | 上线后实测，不阻塞本地开发 |
 | 当前执行阻塞 | 无 | 本地无阻塞；真实收件、公开URL与用户发布属于外部待办 |
 
@@ -58,10 +58,12 @@
 
 | 2026-11-17 | AI 原生与视觉增强 | 首屏/SEO/分享图突出 AI 原生集成；十区块自制图标；MCP 加入 WorkBuddy、Codex、Claude Code 品牌示例；构建、11项页面用例与双语三视口视觉验收通过 | 13.1 用户手动发布 |
 
+| 2026-11-17 | 域名与 Formspree 接入 | 配置 kusto.xpanflow.com 与指定 endpoint、专用适配器、用途说明和 Cloudflare/收件交接；40 单测与35浏览器用例通过，正式构建和视觉通过 | 13.1 用户绑定域名/激活并验证收件 |
+
 ## 交接记录
 
 - 已从远端main指定HEAD `bce468b53fca8c6ea5d907b3f117241b5fb8dcdf` 快进恢复；完成本地阶段02.4–12，未修改其他仓库。
-- 表单正式配置仍disabled；测试接收端仅在忽略的.test-site构建内，全部由浏览器拦截，无真实收件声明。
+- 2026-11-17 用户提供正式域名与 Formspree endpoint，正式表单已 remote；隔离配置与正式 endpoint 测试均被浏览器拦截，无真实收件声明。
 - 固定依赖与lockfile已更新；使用README中的工具路径与开发/检查命令恢复。
 - 正式发布仍停在13.1，由用户手动操作；本次用户授权提交推送；无Cloudflare账户连接/版本上传/激活。
 - 逐步截图保留历史状态；最终截图以12.4与final前缀为准。小字对比度与菜单CLS已修复，细节见QA记录。

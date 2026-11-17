@@ -23,9 +23,13 @@ for (const name of [
 if (!existsSync(`${root}/node_modules`))
   symlinkSync(resolve("node_modules"), `${root}/node_modules`, "dir");
 let config = readFileSync(`${root}/site.config.ts`, "utf8")
-  .replace('siteUrl: ""', 'siteUrl: "https://site.example.test"')
+  .replace(/siteUrl: "[^"]*"/, 'siteUrl: "https://site.example.test"')
   .replace('mode: "disabled"', 'mode: "remote"')
-  .replace('endpoint: ""', 'endpoint: "https://forms.example.test/request"')
+  .replace(
+    /endpoint: "[^"]*"/,
+    'endpoint: "https://forms.example.test/request"',
+  )
+  .replace('transport: "formspree"', 'transport: "json"')
   .replace("timeoutMs: 15000", "timeoutMs: 250");
 writeFileSync(`${root}/site.config.ts`, config);
 const result = spawnSync(

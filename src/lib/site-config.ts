@@ -9,7 +9,7 @@ export interface SiteConfig {
   form: {
     mode: "disabled" | "remote";
     endpoint: string;
-    transport: "json";
+    transport: "json" | "formspree";
     timeoutMs: number;
   };
   release: { allowDisabledForm: boolean };
@@ -22,6 +22,19 @@ export function validateSiteConfig(config: SiteConfig, release = false): void {
 
   if (config.form.mode === "remote" && !isHttpsUrl(config.form.endpoint)) {
     throw new Error("A remote form requires an HTTPS endpoint.");
+  }
+
+  if (config.form.transport === "formspree") {
+    const endpoint = new URL(config.form.endpoint);
+    if (
+      endpoint.origin !== "https://formspree.io" ||
+      !/^\/f\/[a-zA-Z0-9]+$/.test(endpoint.pathname) ||
+      endpoint.search
+    ) {
+      throw new Error(
+        "Formspree requires an https://formspree.io/f/<form-id> endpoint.",
+      );
+    }
   }
 
   if (release) {

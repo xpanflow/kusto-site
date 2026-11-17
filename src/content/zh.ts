@@ -140,7 +140,8 @@ export const zhUI = {
     required: "请填写此项。",
     invalid: "请检查填写内容。",
     long: "内容超过长度限制。",
-    privacy: "所留信息用于联系并安排演示或试用。",
+    privacy:
+      "你填写的信息将通过 Formspree 提交给 KustoCargo 团队，用于联系并安排演示或试用。",
     noscript: "需要启用 JavaScript 才可在线申请。",
   },
   footer: "连接业务的每一步。",

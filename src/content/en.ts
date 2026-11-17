@@ -143,7 +143,7 @@ export const enUI = {
     invalid: "Please check this value.",
     long: "This value exceeds the length limit.",
     privacy:
-      "Your details will be used to contact you and arrange a demo or trial.",
+      "Your details are sent through Formspree to the KustoCargo team to contact you and arrange a demo or trial.",
     noscript: "Enable JavaScript to submit an online request.",
   },
   footer: "Connect every step of your business.",

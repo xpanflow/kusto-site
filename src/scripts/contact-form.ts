@@ -67,6 +67,8 @@ if (form) {
         source: "kusto-cargo-site",
       },
       config.timeoutMs,
+      fetch,
+      config.transport,
     );
     busy = false;
     fieldset.disabled = false;

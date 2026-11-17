@@ -50,7 +50,7 @@ for (const path of ["/", "/en/"])
       );
       await page.locator('[data-intent="trial"]').first().click();
       await expect(page.locator('[name="intent"]')).toHaveValue("trial");
-      await expect(page.locator("[name=name]")).toBeDisabled();
+      await expect(page.locator("[name=name]")).toBeEnabled();
       await page.locator("#faq summary").first().click();
       await expect(page.locator("#faq details").first()).toHaveAttribute(
         "open",
@@ -75,7 +75,10 @@ test("no JS and animation failure retain all content", async ({ browser }) => {
     await page.locator(".menu-toggle").click();
     await expect(page.locator("#site-nav")).toBeVisible();
     await expect(page.locator("#contact")).toBeVisible();
-    await expect(page.locator("[name=name]")).toBeDisabled();
+    // Astro inlines the small contact initializer; blocking the external animation
+    // bundle still leaves the remote form available. With JS off it stays disabled.
+    if (js) await expect(page.locator("[name=name]")).toBeEnabled();
+    else await expect(page.locator("[name=name]")).toBeDisabled();
     await page.close();
   }
 });

@@ -5,11 +5,11 @@ export const siteConfig: SiteConfig = {
   defaultLocale: "zh-CN",
   locales: ["zh-CN", "en"],
   paths: { "zh-CN": "/", en: "/en/" },
-  siteUrl: "",
+  siteUrl: "https://kusto.xpanflow.com",
   form: {
-    mode: "disabled",
-    endpoint: "",
-    transport: "json",
+    mode: "remote",
+    endpoint: "https://formspree.io/f/myewwkwl",
+    transport: "formspree",
     timeoutMs: 15000,
   },
   release: {

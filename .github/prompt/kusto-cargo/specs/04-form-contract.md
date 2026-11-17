@@ -109,3 +109,9 @@ Accept: application/json
 | 422 / 429 / 500 / 超时 / 非 JSON / 不完整成功 JSON | 错误反馈，保留输入，可重试 |
 
 单元测试验证数据规则；浏览器用拦截的合成响应验证状态与请求，不向真实外部接收端发送自动测试信息。真实收件是后续单独的发布验收。
+
+## 2026-11-17 用户选定 Formspree
+
+正式配置改为 remote，endpoint `https://formspree.io/f/myewwkwl`，`transport: "formspree"`；原 JSON 协议由 `transport: "json"` 保留。Formspree 使用 JSON POST 与 Accept header，HTTP 200/201 且非空 `next` 字符串（不得包含 errors/error，ok 不能为 false）确认为成功，不导航到 next。其官方 `@formspree/core@4.0.0` 的成功类型检查以 next 为依据；可从 npm 官方包复核。空 email 从仅微信载荷移除。400/422 的 REQUIRED_FIELD_EMPTY/MISSING、TYPE_EMAIL/TEXT/NUMERIC 只映射已知字段，服务端原始消息不直接插入页面。429、超时、网络错误、非 JSON 或未确认成功均保留输入。requestId 继续用于客户端重试标识，Formspree 端去重能力未确认，不承诺幂等。适配器与界面测试通过后启用，不要求原 submissionId。
+
+用户已授权配置接收端并试发官网；客户端公开用途说明增加 Formspree。收件人验证、域名限制、服务端规则、实际收件与隐私业务资料见 `docs/manual-todo.md`，不以模拟结果声称实际通知送达。

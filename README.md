@@ -23,9 +23,9 @@ npm run preview
 npx wrangler dev --local --ip 127.0.0.1 --port 8787
 ```
 
-浏览器测试使用 Chromium（默认 `/usr/bin/chromium`，可用 `CHROMIUM_PATH` 指定）；测试构建 `.test-site` 仅复制白名单源码与配置、链接现有依赖，接收地址由 Playwright 拦截，无真实提交。不要发布 `.test-site/dist`。
+浏览器测试使用 Chromium（默认 `/usr/bin/chromium`，可用 `CHROMIUM_PATH` 指定）；测试构建 `.test-site` 仅复制白名单源码与配置、链接现有依赖，隔离接收地址及正式 Formspree endpoint 均由 Playwright 拦截，无真实提交。不要发布 `.test-site/dist`。
 
-唯一非秘密运行配置在 `site.config.ts`。默认域名为空、表单 disabled；预览 noindex。`npm run build:release` 要求真实域名和表单配置或用户明确的展示站豁免。
+唯一非秘密运行配置在 `site.config.ts`。当前正式域名为 `https://kusto.xpanflow.com`，表单通过 Formspree 发送（公开 endpoint，非 API 密钥）。本地开发也会加载真实提交配置，手工点击提交会产生真实申请。`npm run build:release` 要求真实域名和表单配置或用户明确的展示站豁免。
 
 ## 实施与交接
 

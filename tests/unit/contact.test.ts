@@ -112,3 +112,72 @@ describe("strict response contract", () => {
       ).ok,
     ).toBe(false));
 });
+
+describe("Formspree adapter", () => {
+  const submit = (status: number, body: unknown) =>
+    sendContact(
+      "https://formspree.io/f/example",
+      {},
+      100,
+      async () => new Response(JSON.stringify(body), { status }),
+      "formspree",
+    );
+  it.each([200, 201])(
+    "accepts Formspree next confirmation (%s)",
+    async (status) => {
+      expect(
+        await submit(status, { next: "https://formspree.io/thanks" }),
+      ).toEqual({ ok: true });
+    },
+  );
+  it.each([
+    [200, {}],
+    [200, { ok: true }],
+    [200, { next: "" }],
+    [200, { next: "https://example.test", errors: [] }],
+    [200, { next: "https://example.test", ok: false }],
+    [500, { next: "https://example.test" }],
+  ])("rejects unconfirmed Formspree response %s %j", async (status, body) => {
+    expect((await submit(Number(status), body)).ok).toBe(false);
+  });
+  it("maps only known Formspree field codes and ignores arbitrary messages", async () => {
+    expect(
+      await submit(422, {
+        errors: [
+          { field: "email", code: "TYPE_EMAIL", message: "untrusted text" },
+          { field: "name", code: "REQUIRED_FIELD_MISSING" },
+          { field: "unknown", code: "TYPE_TEXT" },
+          null,
+        ],
+      }),
+    ).toEqual({
+      ok: false,
+      kind: "error",
+      fields: { email: "invalid", name: "required" },
+    });
+  });
+  it("handles Formspree rate limits", async () => {
+    expect(await submit(429, {})).toEqual({ ok: false, kind: "rate" });
+  });
+  it("sends JSON headers and omits empty email for WeChat-only submissions", async () => {
+    let sent: RequestInit | undefined;
+    await sendContact(
+      "https://formspree.io/f/example",
+      { ...base, email: "", wechat: "example-id" },
+      100,
+      async (_, init) => {
+        sent = init;
+        return new Response(JSON.stringify({ next: "/thanks" }));
+      },
+      "formspree",
+    );
+    expect(sent?.headers).toMatchObject({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    });
+    const payload = JSON.parse(String(sent?.body));
+    expect(payload.email).toBeUndefined();
+    expect(payload.wechat).toBe("example-id");
+    expect(payload._subject).toContain("KustoCargo");
+  });
+});

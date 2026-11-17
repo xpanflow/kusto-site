@@ -58,3 +58,5 @@
 2026-11-17 AI 原生与区块图标：Chromium、本地静态构建。已实际查看 `ai-native-hero-*` 四图拼图、六张 `ai-native-icons-{zh,en}-{desktop,tablet,mobile}.png` 区块标题截图拼图，以及 `ai-native-mcp-*` 四图拼图和六张完整 MCP 区块的双语拼图。十个区块图标完整，深浅背景可辨，标题与正文自然折行；MCP 卡片桌面/平板三列、手机单列，三种品牌图形正常。补查 1366×768 常规动画英文首屏，标题、CTA、阶段导航与滚动提示均可见。双语分享图已打开检查，AI 原生与产品名称完整。
 
 修复：最初懒加载图形会在滚动后的即时截图中空白，改为小型本地 SVG 直接加载；重新截图验证。完整区块截图改为从页面顶部的 full-page 截图按区块边界裁切，避免 locator 截图时固定导航混入长截图；最终证据未包含该采集伪影。六种语言/视口组合均为 10 个区块图标、3 个已加载品牌图片，无横向溢出、页面错误或外部请求，见 `visual/ai-native-sections.json`。
+
+2026-11-17 Formspree 接入：`visual/formspree-contact-{zh,en}-{desktop,mobile}.png` 为正式配置的本地构建，已实际查看四图拼图；字段启用、隐私用途说明、标签和手机换行正常，无页面错误、外部请求或横向溢出。`formspree-{zh,en}-{success,field-error}.png` 来自被拦截的 Formspree JSON 响应，四张已实际查看：成功时清空输入并显示本地化状态；422 时原输入保留、邮箱错误与焦点环可辨。`formspree-generic-*` 为保留的自定义 JSON 适配器测试证据。没有发出真实申请，不把这些截图作为实际收件证明。
