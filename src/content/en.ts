@@ -39,8 +39,8 @@ export const enUI = {
   nav: ["Capabilities", "AI assistant", "Tracking", "Get in touch"],
   hero: {
     eyebrow: "Built for small freight teams",
-    title: "Freight software that fits your workflow.",
-    body: "Connect bookings, documents, shipments and costs. Start with a standard version, tailor it to your operations, and bring AI into everyday work.",
+    title: "International freight forwarding TMS",
+    body: "Start with a standard TMS. Our team tailors it to your workflows, connecting bookings, documents, shipments and costs with AI assistance.",
     demo: "Request a demo",
     trial: "Request trial access",
     scroll: "Follow a shipment. Discover KustoCargo.",

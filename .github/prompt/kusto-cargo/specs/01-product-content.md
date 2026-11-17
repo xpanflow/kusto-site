@@ -36,8 +36,8 @@
 | 项目 | 中文 | English |
 | --- | --- | --- |
 | 眉题 | 为小微货代而设计 | Built for small freight teams |
-| H1 | 让系统适应你的货代业务。 | Freight software that fits your workflow. |
-| 说明 | 连接订单、单据、运输与费用。从标准版本开始，按你的实际流程定制，让 AI 融入日常工作。 | Connect bookings, documents, shipments and costs. Start with a standard version, tailor it to your operations, and bring AI into everyday work. |
+| H1 | 国际货代 TMS 系统 | International freight forwarding TMS |
+| 说明 | 以标准版本为起点，由我们的团队按你的业务流程定制，连接订单、单据、运输与费用，让 AI 融入日常工作。 | Start with a standard TMS. Our team tailors it to your workflows, connecting bookings, documents, shipments and costs with AI assistance. |
 | 主 CTA | 预约演示 | Request a demo |
 | 次 CTA | 申请试用 | Request trial access |
 | 滚动提示 | 跟随一票货，了解途序 | Follow a shipment. Discover KustoCargo. |

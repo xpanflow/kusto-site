@@ -40,3 +40,5 @@ Lighthouse为本地Chromium移动模拟，不能代表真实中国/欧洲访问�
 最终补充：初始外部与内联JavaScript gzip合计上界46,426 bytes，CSS gzip3,360 bytes，全制品268,278 bytes。已补remote成功/422两张实际状态截图并完成2项定向复测；主矩阵仍为21项，不将定向复测重复计入总数。
 
 2026-11-17 增量验证：页脚版权与导航、双语 sitemap 语言链接、正式配置下404不索引。`npm run check` 0错误/警告、`npm run format:check`、`npm run build` 通过；Chromium中英文手机实点页脚两个链接通过。预览 sitemap 0 条 URL、robots 禁止收录；隔离 HTTPS 测试配置 sitemap 2 条 URL，每条含两个语言替代链接，robots 指向 sitemap。四张页脚截图已实际查看，未重跑与改动无关的表单矩阵。正式域名仍由用户配置。
+
+2026-11-17 首屏文案增量验证：主标题、说明、页面 title、分享图及内容规格同步突出国际货代 TMS。`npm run check`、`npm run format:check`、`npm run build` 通过；Chromium 中英文桌面/手机四种视口截图完成，无控制台错误、外部请求或横向溢出，截图与分享图已实际查看。此次为文案调整，未重跑表单测试矩阵。
